@@ -14,11 +14,10 @@
   --grad:linear-gradient(135deg,#3e76d9 0%,#7b2be6 100%);
   --grad-soft:linear-gradient(135deg,#eef3ff 0%,#f3edff 100%);
   --price-grad:linear-gradient(90deg,#06b6d4,#4f46e5);
-  --ink:#17203a; --ink2:#1a2233; --muted:#67728c; --muted2:#9aa3b7;
+  --ink:#17203a; --muted:#67728c; --muted2:#9aa3b7;
   --line:#e9edf3; --bg:#f5f7fb; --card:#ffffff;
   --shadow:0 10px 30px rgba(30,40,70,.08);
   --shadow-lg:0 18px 44px rgba(30,40,70,.16);
-  --radius:20px;
   --nav-h:64px; --header-h:56px;
   --safe-top:env(safe-area-inset-top,0px);
   --safe-bottom:env(safe-area-inset-bottom,0px);
@@ -39,17 +38,16 @@ a{color:inherit;text-decoration:none;}
 /* Header */
 .header{position:sticky;top:0;z-index:40;height:calc(var(--header-h) + var(--safe-top));padding-top:var(--safe-top);background:rgba(255,255,255,.9);backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px;padding-left:12px;padding-right:10px;}
 .burger{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:#f0f3f9;color:var(--ink);}
-.burger:active{transform:scale(.9);}
+.burger:active,.icon-btn:active{transform:scale(.9);}
 .logo-img{height:30px;width:auto;}
 .header .spacer{flex:1;}
-.icon-btn{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:#f0f3f9;color:var(--brand1);transition:transform .12s;}
-.icon-btn:active{transform:scale(.9);}
-.icon-btn.call{background:var(--grad);color:#fff;box-shadow:0 8px 18px rgba(80,60,200,.32);}
+.icon-btn{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--grad);color:#fff;box-shadow:0 8px 18px rgba(80,60,200,.32);transition:transform .12s;}
 .icon-btn svg{width:19px;height:19px;}
 
 /* Drawer */
-.drawer-back{position:absolute;inset:0;z-index:70;background:rgba(15,20,35,.5);backdrop-filter:blur(2px);opacity:0;visibility:hidden;transition:.25s;}
-.drawer-back.open{opacity:1;visibility:visible;}
+.drawer-back,.sheet-back{position:absolute;inset:0;background:rgba(15,20,35,.5);backdrop-filter:blur(2px);opacity:0;visibility:hidden;transition:.25s;}
+.drawer-back{z-index:70;} .sheet-back{z-index:60;}
+.drawer-back.open,.sheet-back.open{opacity:1;visibility:visible;}
 .drawer{position:absolute;top:0;left:0;bottom:0;z-index:71;width:82%;max-width:330px;background:var(--card);transform:translateX(-100%);transition:transform .3s cubic-bezier(.22,1,.36,1);display:flex;flex-direction:column;box-shadow:var(--shadow-lg);}
 .drawer.open{transform:none;}
 .drawer-head{background:var(--grad);color:#fff;padding:calc(20px + var(--safe-top)) 20px 20px;}
@@ -58,13 +56,13 @@ a{color:inherit;text-decoration:none;}
 .drawer-head b{font-size:16px;font-weight:800;display:block;}
 .drawer-head span{font-size:12px;opacity:.9;}
 .drawer-menu{flex:1;overflow-y:auto;padding:10px 0;}
-.dm-item{display:flex;align-items:center;gap:14px;padding:14px 20px;font-size:15px;font-weight:700;transition:background .15s;width:100%;text-align:left;}
+.dm-item{display:flex;align-items:center;gap:14px;padding:14px 20px;font-size:15px;font-weight:700;width:100%;text-align:left;}
 .dm-item:active{background:#f2f5fb;}
 .dm-item .di{width:34px;height:34px;border-radius:10px;background:var(--grad-soft);display:grid;place-items:center;color:var(--brand2);flex:0 0 34px;}
 .dm-item .di svg{width:18px;height:18px;}
 .dm-item .go{margin-left:auto;color:var(--muted2);}
 .drawer-foot{padding:16px 20px calc(18px + var(--safe-bottom));border-top:1px solid var(--line);}
-.drawer-foot a.phone{display:block;font-size:18px;font-weight:800;color:var(--ink);margin-bottom:4px;}
+.drawer-foot a.phone{display:block;font-size:18px;font-weight:800;margin-bottom:4px;}
 .drawer-foot .hrs{font-size:11.5px;color:var(--muted);margin-bottom:12px;}
 .drawer-soc{display:flex;gap:10px;}
 .drawer-soc a{width:40px;height:40px;border-radius:11px;background:#f0f3f9;display:grid;place-items:center;}
@@ -75,10 +73,18 @@ a{color:inherit;text-decoration:none;}
 .screen{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:calc(var(--nav-h) + var(--safe-bottom) + 20px);opacity:0;visibility:hidden;transform:translateX(14px);transition:opacity .28s ease,transform .28s ease,visibility .28s;}
 .screen.active{opacity:1;visibility:visible;transform:none;}
 .screen::-webkit-scrollbar{width:0;}
-
-.section-title{font-size:19px;font-weight:800;letter-spacing:-.2px;margin:24px 16px 12px;display:flex;align-items:center;justify-content:space-between;scroll-margin-top:70px;}
+.section-title{font-size:19px;font-weight:800;letter-spacing:-.2px;margin:24px 16px 12px;display:flex;align-items:center;justify-content:space-between;}
 .section-title .link{font-size:13px;font-weight:700;color:var(--brand1);}
 .sub{font-size:12.5px;color:var(--muted);margin:-6px 16px 12px;line-height:1.4;}
+
+/* Brand logo chip (instead of the brand name) */
+.blogo{position:absolute;top:10px;left:10px;z-index:2;width:50px;height:50px;border-radius:15px;background:#fff;display:grid;place-items:center;box-shadow:0 6px 16px rgba(20,30,60,.16);padding:7px;}
+.blogo img{max-width:100%;max-height:100%;object-fit:contain;}
+.blogo.lg{width:60px;height:60px;border-radius:18px;padding:9px;}
+.badge-type{position:absolute;top:12px;right:12px;z-index:2;font-size:10px;font-weight:700;padding:5px 10px;border-radius:20px;color:#fff;}
+.t-ev{background:linear-gradient(90deg,#0891b2,#2563eb);}
+.t-hyb{background:linear-gradient(90deg,#7c3aed,#db2777);}
+.t-gas{background:linear-gradient(90deg,#ea580c,#d97706);}
 
 /* Hero */
 .hero{margin:14px 16px 0;border-radius:26px;padding:20px 20px 16px;color:#fff;background:var(--grad);position:relative;overflow:hidden;box-shadow:0 20px 40px rgba(90,60,210,.3);}
@@ -87,87 +93,79 @@ a{color:inherit;text-decoration:none;}
 .hero p{position:relative;font-size:12.5px;line-height:1.45;opacity:.92;margin:0 0 14px;max-width:82%;}
 .hero-badges{position:relative;display:flex;gap:7px;flex-wrap:wrap;}
 .hero-badges span{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);font-size:10.5px;font-weight:600;padding:5px 10px;border-radius:20px;}
-
 .hcar{margin:14px 0 2px;}
 .hcar-track{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 16px 6px;scrollbar-width:none;}
-.hcar-track::-webkit-scrollbar{display:none;}
-.hcar-card{scroll-snap-align:center;flex:0 0 86%;background:var(--card);border-radius:22px;box-shadow:var(--shadow);overflow:hidden;border:1px solid var(--line);}
-.hcar-img{height:170px;background:linear-gradient(180deg,#f2f5fb,#e9edf6);display:grid;place-items:center;position:relative;}
-.hcar-img img{height:152px;width:auto;object-fit:contain;filter:drop-shadow(0 14px 18px rgba(20,30,60,.22));}
-.hcar-body{padding:13px 15px 15px;}
-.hcar-body h3{margin:0 0 3px;font-size:16px;font-weight:800;}
-.hcar-body .price{font-weight:800;font-size:15px;background:var(--price-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.hcar-track::-webkit-scrollbar,.hscroll::-webkit-scrollbar,.chips::-webkit-scrollbar,.filter-row::-webkit-scrollbar,.dg-track::-webkit-scrollbar,.lb-track::-webkit-scrollbar,.sw-row::-webkit-scrollbar{display:none;}
+.hcar-card{scroll-snap-align:center;flex:0 0 88%;background:var(--card);border-radius:24px;box-shadow:var(--shadow);overflow:hidden;border:1px solid var(--line);}
+.hcar-img{height:210px;background:linear-gradient(180deg,#f2f5fb,#e7ebf5);display:grid;place-items:center;position:relative;}
+.hcar-img img.car{width:92%;height:180px;object-fit:contain;margin-top:14px;filter:drop-shadow(0 16px 18px rgba(20,30,60,.24));}
+.hcar-body{padding:13px 16px 16px;}
+.hcar-body h3{margin:0 0 3px;font-size:17px;font-weight:800;}
+.hcar-body .price{font-weight:800;font-size:15.5px;background:var(--price-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .hcar-dots{display:flex;justify-content:center;gap:6px;margin-top:8px;}
-.hcar-dots i{width:6px;height:6px;border-radius:50%;background:#c7cede;transition:width .25s,background .25s;}
+.hcar-dots i{width:6px;height:6px;border-radius:50%;background:#c7cede;transition:width .25s;}
 .hcar-dots i.on{width:20px;background:var(--grad);border-radius:6px;}
 
-/* brand + type badges */
-.brand-badge{position:absolute;top:10px;left:10px;z-index:2;background:rgba(255,255,255,.95);color:#10131c;font-size:9.5px;font-weight:800;letter-spacing:.6px;padding:4px 9px;border-radius:8px;box-shadow:0 3px 8px rgba(20,30,60,.14);text-transform:uppercase;display:flex;align-items:center;gap:5px;}
-.brand-badge i{width:6px;height:6px;border-radius:50%;}
-.badge-type{position:absolute;top:10px;right:10px;z-index:2;font-size:9px;font-weight:700;padding:4px 9px;border-radius:20px;color:#fff;}
-.t-ev{background:linear-gradient(90deg,#0891b2,#2563eb);}
-.t-hyb{background:linear-gradient(90deg,#7c3aed,#db2777);}
-.t-gas{background:linear-gradient(90deg,#ea580c,#d97706);}
-
-/* chips */
 .chips{display:flex;gap:9px;overflow-x:auto;padding:16px 16px 4px;scrollbar-width:none;}
-.chips::-webkit-scrollbar{display:none;}
-.chip{flex:0 0 auto;display:flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:11px 15px;font-size:13px;font-weight:700;box-shadow:0 6px 16px rgba(30,40,70,.05);transition:transform .12s;}
-.chip:active{transform:scale(.95);}
+.chip{flex:0 0 auto;display:flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:11px 15px;font-size:13px;font-weight:700;box-shadow:0 6px 16px rgba(30,40,70,.05);}
 .chip svg{width:17px;height:17px;color:var(--brand1);}
 
-/* horizontal scrollers */
-.hscroll{display:flex;gap:13px;overflow-x:auto;padding:0 16px 8px;scrollbar-width:none;}
-.hscroll::-webkit-scrollbar{display:none;}
-.lead-card{flex:0 0 200px;background:var(--card);border-radius:20px;border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden;transition:transform .12s;}
-.lead-card:active{transform:scale(.97);}
-.lead-img{height:132px;background:linear-gradient(180deg,#f2f5fb,#e9edf6);display:grid;place-items:center;position:relative;}
-.lead-img img{height:114px;width:auto;object-fit:contain;filter:drop-shadow(0 10px 14px rgba(20,30,60,.18));}
-.lead-body{padding:12px 13px 14px;}
-.lead-body h4{margin:0 0 6px;font-size:14px;font-weight:800;line-height:1.2;min-height:2.4em;}
-.lead-body .from{font-size:10px;color:var(--muted2);font-weight:600;}
-.lead-body .price{font-size:13.5px;font-weight:800;}
+/* Leaders (bigger) */
+.hscroll{display:flex;gap:13px;overflow-x:auto;padding:0 16px 8px;scrollbar-width:none;scroll-snap-type:x proximity;}
+.lead-card{flex:0 0 270px;scroll-snap-align:start;background:var(--card);border-radius:22px;border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden;transition:transform .12s;}
+.lead-card:active,.car-card:active{transform:scale(.98);}
+.lead-img{height:190px;background:linear-gradient(180deg,#f2f5fb,#e7ebf5);display:grid;place-items:center;position:relative;}
+.lead-img img.car{width:94%;height:160px;object-fit:contain;margin-top:18px;filter:drop-shadow(0 12px 16px rgba(20,30,60,.2));}
+.lead-body{padding:13px 15px 15px;}
+.lead-body h4{margin:0 0 4px;font-size:15.5px;font-weight:800;line-height:1.2;}
+.from{font-size:11px;color:var(--muted2);font-weight:600;}
+.pr{font-size:15px;font-weight:800;}
 
-/* trust */
+/* Big catalog cards (1 column) */
+.cat-list{padding:0 16px;display:flex;flex-direction:column;gap:14px;}
+.car-card{background:var(--card);border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:var(--shadow);transition:transform .12s;}
+.car-img{height:230px;background:linear-gradient(180deg,#f2f5fb,#e7ebf5);display:grid;place-items:center;position:relative;}
+.car-img img.car{width:94%;height:200px;object-fit:contain;margin-top:16px;filter:drop-shadow(0 16px 18px rgba(20,30,60,.22));}
+.car-body{padding:14px 16px 16px;}
+.car-body h4{margin:0 0 4px;font-size:18px;font-weight:800;letter-spacing:-.2px;}
+.car-body .row{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-top:6px;}
+.car-body .pr{font-size:17px;background:var(--price-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.spec-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px;}
+.spec-chips span{font-size:11px;font-weight:700;color:#4c566d;background:#f1f4fa;border-radius:9px;padding:6px 9px;}
+.dots{display:flex;align-items:center;gap:4px;}
+.dots img{width:18px;height:18px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 1.5px #fff,0 0 0 2.5px #dfe4ee;}
+.dots em{font-style:normal;font-size:10.5px;color:var(--muted2);font-weight:700;margin-left:3px;}
+.more-btn{font-size:12.5px;font-weight:800;color:var(--brand1);display:flex;align-items:center;gap:4px;}
+
+/* trust/adv/steps/parts/video/reviews/faq/blog */
 .trust{margin:6px 16px 0;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:15px;box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(3,1fr);gap:6px;text-align:center;}
 .trust .num{font-size:20px;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .trust .lbl{font-size:10.5px;color:var(--muted);font-weight:600;margin-top:2px;line-height:1.25;}
-
-/* advantage / feature cards */
 .adv-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;padding:0 16px;}
 .adv{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px;box-shadow:0 8px 20px rgba(30,40,70,.05);}
 .adv .ic{width:40px;height:40px;border-radius:12px;background:var(--grad-soft);display:grid;place-items:center;margin-bottom:10px;color:var(--brand2);}
 .adv .ic svg{width:21px;height:21px;}
 .adv h5{margin:0 0 3px;font-size:13.5px;font-weight:800;}
 .adv p{margin:0;font-size:11.5px;color:var(--muted);line-height:1.35;}
-
-/* steps */
 .steps{padding:0 16px;}
 .step{display:flex;gap:14px;align-items:flex-start;position:relative;padding-bottom:18px;}
 .step:not(:last-child):before{content:"";position:absolute;left:17px;top:36px;bottom:0;width:2px;background:linear-gradient(#d7ddec,transparent);}
-.step .n{flex:0 0 36px;height:36px;border-radius:12px;background:var(--grad);color:#fff;display:grid;place-items:center;font-weight:800;font-size:15px;box-shadow:0 8px 16px rgba(80,60,200,.28);}
+.step .n{flex:0 0 36px;height:36px;border-radius:12px;background:var(--grad);color:#fff;display:grid;place-items:center;font-weight:800;font-size:15px;}
 .step .c h5{margin:2px 0 3px;font-size:14px;font-weight:800;}
 .step .c p{margin:0;font-size:12px;color:var(--muted);line-height:1.4;}
-
-/* parts card */
-.parts{margin:0 16px;border-radius:22px;padding:20px;background:linear-gradient(135deg,#1f2440,#3a2f6e);color:#fff;box-shadow:var(--shadow);position:relative;overflow:hidden;}
-.parts:before{content:"";position:absolute;width:150px;height:150px;right:-50px;top:-60px;background:radial-gradient(circle,rgba(255,255,255,.12),transparent 70%);}
-.parts h4{margin:0 0 8px;font-size:17px;font-weight:800;position:relative;}
-.parts p{margin:0 0 15px;font-size:12.5px;opacity:.9;line-height:1.5;position:relative;}
-.parts .tags{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px;position:relative;}
+.parts{margin:0 16px;border-radius:22px;padding:20px;background:linear-gradient(135deg,#1f2440,#3a2f6e);color:#fff;box-shadow:var(--shadow);}
+.parts h4{margin:0 0 8px;font-size:17px;font-weight:800;}
+.parts p{margin:0 0 15px;font-size:12.5px;opacity:.9;line-height:1.5;}
+.parts .tags{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px;}
 .parts .tags span{font-size:10.5px;font-weight:600;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);padding:5px 10px;border-radius:20px;}
-.parts .btn{position:relative;background:#fff;color:#2a2560;}
-
-/* video reviews */
-.vid-card{flex:0 0 240px;border-radius:18px;overflow:hidden;box-shadow:var(--shadow);position:relative;display:block;}
-.vid-thumb{height:135px;position:relative;display:grid;place-items:center;}
-.vid-thumb .play{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;box-shadow:0 6px 16px rgba(0,0,0,.25);}
+.parts .btn{background:#fff;color:#2a2560;}
+.vid-card{flex:0 0 240px;border-radius:18px;overflow:hidden;box-shadow:var(--shadow);display:block;}
+.vid-thumb{height:135px;display:grid;place-items:center;}
+.vid-thumb .play{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;}
 .vid-thumb .play svg{width:20px;height:20px;color:#ff2d2d;margin-left:2px;}
-.vid-card .cap{background:var(--card);border:1px solid var(--line);border-top:none;padding:11px 13px;font-size:13px;font-weight:700;line-height:1.25;}
+.vid-card .cap{background:var(--card);border:1px solid var(--line);border-top:none;padding:11px 13px;font-size:13px;font-weight:700;}
 .vid-card .cap small{display:block;font-size:10.5px;color:#ff3d3d;font-weight:700;margin-top:3px;}
-
-/* review cards */
-.rev-card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:16px;margin:0 16px 13px;overflow:hidden;}
+.rev-card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:16px;margin:0 16px 13px;}
 .rev-card.mini{flex:0 0 250px;margin:0;}
 .rev-card .top{display:flex;gap:13px;align-items:center;margin-bottom:11px;}
 .rev-card .ava{width:54px;height:54px;border-radius:15px;object-fit:cover;flex:0 0 54px;background:#eef1f6;}
@@ -176,160 +174,176 @@ a{color:inherit;text-decoration:none;}
 .rev-card .txt{font-size:13px;line-height:1.55;color:#4c566d;}
 .rev-card .txt.clamp{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;}
 .rev-more{font-size:12.5px;font-weight:700;color:var(--brand1);margin-top:7px;display:inline-block;}
-
-/* FAQ */
 .faq{margin:0 16px;}
-.faq-item{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:10px;overflow:hidden;box-shadow:0 6px 16px rgba(30,40,70,.05);}
-.faq-q{padding:15px 16px;font-size:13.5px;font-weight:700;display:flex;align-items:center;gap:12px;}
-.faq-q .pl{margin-left:auto;flex:0 0 22px;width:22px;height:22px;border-radius:7px;background:var(--grad-soft);color:var(--brand2);display:grid;place-items:center;font-size:16px;font-weight:800;transition:transform .25s;}
-.faq-item.open .faq-q .pl{transform:rotate(45deg);}
+.faq-item{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:10px;overflow:hidden;}
+.faq-q{padding:15px 16px;font-size:13.5px;font-weight:700;display:flex;align-items:center;gap:12px;width:100%;text-align:left;}
+.faq-q .pl{margin-left:auto;flex:0 0 22px;height:22px;border-radius:7px;background:var(--grad-soft);color:var(--brand2);display:grid;place-items:center;font-size:16px;font-weight:800;transition:transform .25s;}
+.faq-item.open .pl{transform:rotate(45deg);}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;}
 .faq-a p{margin:0;padding:0 16px 15px;font-size:12.5px;color:var(--muted);line-height:1.5;}
-
-/* blog */
 .blog-card{flex:0 0 230px;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);display:block;}
 .blog-thumb{height:110px;background:var(--grad-soft);display:grid;place-items:center;color:var(--brand2);}
 .blog-thumb svg{width:38px;height:38px;opacity:.6;}
 .blog-card .bd{padding:12px 13px 14px;}
-.blog-card .bd small{font-size:10px;color:var(--muted2);font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.blog-card .bd small{font-size:10px;color:var(--muted2);font-weight:700;text-transform:uppercase;}
 .blog-card .bd h5{margin:5px 0 0;font-size:13px;font-weight:700;line-height:1.3;}
 
-/* catalog */
+/* Catalog filters */
 .searchbar{position:sticky;top:0;z-index:20;background:var(--bg);padding:14px 16px 6px;}
-.search{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;box-shadow:0 6px 16px rgba(30,40,70,.05);}
-.search svg{width:18px;height:18px;color:var(--muted2);flex:0 0 18px;}
+.search{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;}
+.search svg{width:18px;height:18px;color:var(--muted2);}
 .search input{border:none;outline:none;flex:1;font-size:14px;font-family:inherit;background:none;color:var(--ink);}
-.filter-group{padding:2px 0 0;}
-.filter-label{font-size:11px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:.6px;margin:10px 16px 7px;}
+.filter-label{font-size:11px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:.6px;margin:10px 16px 8px;}
 .filter-row{display:flex;gap:8px;overflow-x:auto;padding:0 16px 2px;scrollbar-width:none;}
-.filter-row::-webkit-scrollbar{display:none;}
-.fchip{flex:0 0 auto;padding:9px 15px;border-radius:12px;font-size:12.5px;font-weight:700;background:var(--card);border:1px solid var(--line);color:var(--muted);transition:.18s;white-space:nowrap;}
+.fchip{flex:0 0 auto;padding:9px 15px;border-radius:13px;font-size:12.5px;font-weight:700;background:var(--card);border:1.5px solid var(--line);color:var(--muted);white-space:nowrap;display:flex;align-items:center;gap:7px;}
 .fchip.on{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 8px 16px rgba(80,60,200,.28);}
+.bchip{flex:0 0 auto;width:70px;padding:9px 4px 8px;border-radius:16px;background:var(--card);border:1.5px solid var(--line);display:flex;flex-direction:column;align-items:center;gap:6px;font-size:10.5px;font-weight:700;color:var(--muted);}
+.bchip .bl{width:40px;height:40px;display:grid;place-items:center;}
+.bchip .bl img{max-width:40px;max-height:36px;object-fit:contain;}
+.bchip .all{width:40px;height:40px;border-radius:12px;background:var(--grad-soft);display:grid;place-items:center;color:var(--brand2);font-weight:800;font-size:12px;}
+.bchip.on{border-color:var(--brand2);color:var(--brand2);box-shadow:0 8px 18px rgba(123,43,230,.18);background:#faf7ff;}
 .count-line{padding:14px 16px 10px;font-size:12.5px;color:var(--muted);font-weight:700;}
-.catalog-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 16px;}
-.cat-card{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);transition:transform .12s;}
-.cat-card:active{transform:scale(.97);}
-.cat-img{height:112px;background:linear-gradient(180deg,#f2f5fb,#e9edf6);display:grid;place-items:center;position:relative;}
-.cat-img img{height:94px;width:auto;object-fit:contain;filter:drop-shadow(0 8px 12px rgba(20,30,60,.16));}
-.cat-body{padding:11px 12px 13px;}
-.cat-body h4{margin:0 0 5px;font-size:13px;font-weight:800;line-height:1.2;min-height:2.4em;}
-.cat-body .from{font-size:9.5px;color:var(--muted2);font-weight:600;}
-.cat-body .price{font-size:13px;font-weight:800;}
 .empty{text-align:center;color:var(--muted);font-size:13px;padding:40px 20px;}
 
-/* car detail */
-.detail-hero{background:linear-gradient(180deg,#eef2fb,#f5f7fb);position:relative;padding:8px 0 6px;}
-.detail-img{height:240px;display:grid;place-items:center;position:relative;}
-.detail-img img{height:210px;width:auto;object-fit:contain;filter:drop-shadow(0 20px 22px rgba(20,30,60,.24));}
-.detail-brand{position:absolute;top:14px;left:16px;z-index:3;background:rgba(255,255,255,.95);color:#10131c;font-size:11px;font-weight:800;letter-spacing:.8px;padding:6px 12px;border-radius:9px;box-shadow:0 3px 10px rgba(20,30,60,.16);text-transform:uppercase;display:flex;align-items:center;gap:6px;}
-.detail-brand i{width:7px;height:7px;border-radius:50%;}
-.back-btn{position:absolute;top:12px;right:14px;z-index:5;width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.9);box-shadow:var(--shadow);display:grid;place-items:center;color:var(--ink);}
-.back-btn:active{transform:scale(.9);}
-.detail-body{padding:6px 16px 0;}
-.detail-body .type-badge{display:inline-block;font-size:10.5px;font-weight:700;color:#fff;padding:5px 12px;border-radius:20px;margin-bottom:9px;}
-.detail-body h2{margin:0 0 8px;font-size:23px;font-weight:800;letter-spacing:-.4px;}
-.detail-price{font-size:24px;font-weight:800;background:var(--price-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
-.detail-price .from{font-size:11px;color:var(--muted2);font-weight:600;-webkit-text-fill-color:var(--muted2);display:block;}
-.spec-list{margin:18px 0 4px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--card);}
-.spec-row{display:flex;align-items:center;gap:12px;padding:13px 15px;border-bottom:1px solid var(--line);}
-.spec-row:last-child{border-bottom:none;}
-.spec-row .si{width:34px;height:34px;border-radius:10px;background:var(--grad-soft);display:grid;place-items:center;color:var(--brand2);flex:0 0 34px;}
-.spec-row .si svg{width:18px;height:18px;}
-.spec-row .sk{font-size:11px;color:var(--muted);font-weight:600;}
-.spec-row .sv{font-size:13.5px;font-weight:700;margin-top:1px;}
+/* Car detail */
+.dg{position:relative;background:#e9edf5;}
+.dg-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;}
+.dg-slide{flex:0 0 100%;scroll-snap-align:center;aspect-ratio:4/3;display:grid;place-items:center;background:linear-gradient(180deg,#f2f5fb,#e3e8f2);}
+.dg-slide img{width:100%;height:100%;object-fit:cover;}
+.dg-slide img.cut{object-fit:contain;padding:22px 10px 8px;filter:drop-shadow(0 16px 18px rgba(20,30,60,.24));}
+.dg-count{position:absolute;bottom:12px;left:14px;background:rgba(15,20,35,.62);color:#fff;font-size:11.5px;font-weight:700;padding:5px 10px;border-radius:20px;}
+.dg-all{position:absolute;bottom:10px;right:12px;background:#fff;color:var(--ink);font-size:12px;font-weight:800;padding:8px 12px;border-radius:12px;box-shadow:var(--shadow);display:flex;align-items:center;gap:6px;}
+.dg-all svg{width:16px;height:16px;color:var(--brand2);}
+.back-btn{position:absolute;top:12px;right:12px;z-index:5;width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.92);box-shadow:var(--shadow);display:grid;place-items:center;}
+.detail-body{padding:16px 16px 0;}
+.d-head{display:flex;gap:13px;align-items:center;margin-bottom:10px;}
+.d-head .blogo{position:static;box-shadow:0 4px 14px rgba(20,30,60,.12);border:1px solid var(--line);}
+.d-head .type-badge{display:inline-block;font-size:10.5px;font-weight:700;color:#fff;padding:4px 11px;border-radius:20px;margin-bottom:5px;}
+.d-head h2{margin:0;font-size:22px;font-weight:800;letter-spacing:-.4px;line-height:1.15;}
+.d-price{font-size:23px;font-weight:800;background:var(--price-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.d-price-lbl{font-size:11px;color:var(--muted2);font-weight:600;}
+.key-specs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px;}
+.key-specs div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 9px;}
+.key-specs small{display:block;font-size:10px;color:var(--muted2);font-weight:700;}
+.key-specs b{font-size:12px;font-weight:800;line-height:1.25;display:block;margin-top:2px;}
+
+.cfg{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:16px;box-shadow:var(--shadow);}
+.cfg h3{margin:0 0 3px;font-size:17px;font-weight:800;}
+.cfg .hint{font-size:11.5px;color:var(--muted);margin-bottom:6px;}
+.cfg-block{padding-top:14px;margin-top:12px;border-top:1px solid var(--line);}
+.cfg-block:first-of-type{border-top:none;margin-top:4px;padding-top:6px;}
+.cfg-t{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;}
+.cfg-t b{font-size:13.5px;font-weight:800;}
+.cfg-t span{font-size:12.5px;font-weight:700;color:var(--brand2);}
+.sw-row{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;padding:3px 3px 4px;}
+.sw{flex:0 0 auto;width:44px;height:44px;border-radius:50%;padding:3px;border:2px solid transparent;transition:.15s;}
+.sw img{width:100%;height:100%;border-radius:50%;object-fit:cover;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06);background:#eee;}
+.sw.on{border-color:var(--brand2);box-shadow:0 4px 12px rgba(123,43,230,.25);}
+.int-strip{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-top:12px;}
+.int-strip img{flex:0 0 150px;height:105px;border-radius:13px;object-fit:cover;background:#eef1f6;}
+.wh{flex:0 0 auto;width:74px;height:74px;border-radius:50%;background:#f3f5fa;border:2px solid transparent;padding:5px;display:grid;place-items:center;transition:.15s;}
+.wh-preview{width:100%;margin-top:12px;border-radius:14px;background:#f3f5fa;aspect-ratio:500/292;object-fit:cover;}
+.wh img{max-width:100%;max-height:100%;object-fit:contain;}
+.wh.on{border-color:var(--brand2);background:#faf7ff;box-shadow:0 6px 14px rgba(123,43,230,.2);}
+.specs{margin-top:18px;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--card);}
+.specs h3{margin:0;padding:15px 16px 6px;font-size:17px;font-weight:800;}
+.spec-row{display:flex;justify-content:space-between;gap:14px;padding:12px 16px;border-top:1px solid var(--line);font-size:13px;}
+.spec-row span{color:var(--muted);font-weight:600;}
+.spec-row b{font-weight:700;text-align:right;}
 .incl{margin:18px 0 6px;background:var(--grad-soft);border-radius:18px;padding:16px;}
 .incl h5{margin:0 0 10px;font-size:14px;font-weight:800;}
 .incl ul{margin:0;padding:0;}
-.incl li{list-style:none;font-size:12.5px;color:#42506b;font-weight:600;display:flex;gap:9px;align-items:flex-start;margin-bottom:8px;}
+.incl li{list-style:none;font-size:12.5px;color:#42506b;font-weight:600;display:flex;gap:9px;margin-bottom:8px;}
 .incl li svg{width:16px;height:16px;color:#16a34a;flex:0 0 16px;margin-top:1px;}
 .disc{font-size:11px;color:var(--muted2);line-height:1.4;margin:12px 2px 0;}
-.order-bar{position:sticky;bottom:0;margin-top:20px;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:12px 16px calc(12px + var(--safe-bottom));display:flex;gap:11px;align-items:center;}
-.order-bar .p{flex:1;}
-.order-bar .p .from{font-size:10px;color:var(--muted2);font-weight:600;}
+.order-bar{position:sticky;bottom:0;margin-top:20px;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:12px 16px calc(12px + var(--safe-bottom));display:flex;gap:11px;align-items:center;}
+.order-bar .p{flex:1;min-width:0;}
 .order-bar .p .v{font-size:16px;font-weight:800;}
+.order-bar .p .c{font-size:10.5px;color:var(--muted);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 
-/* buttons */
+/* Lightbox (all photos) */
+.lb{position:absolute;inset:0;z-index:90;background:#0b0e17;display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:.25s;}
+.lb.open{opacity:1;visibility:visible;}
+.lb-top{display:flex;align-items:center;gap:8px;padding:calc(12px + var(--safe-top)) 12px 10px;}
+.lb-tabs{flex:1;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;}
+.lb-tabs::-webkit-scrollbar{display:none;}
+.lb-tab{flex:0 0 auto;padding:8px 13px;border-radius:12px;font-size:12px;font-weight:700;color:#aeb6cc;background:rgba(255,255,255,.08);}
+.lb-tab.on{background:#fff;color:var(--ink);}
+.lb-close{width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.12);color:#fff;font-size:22px;display:grid;place-items:center;}
+.lb-track{flex:1;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;align-items:center;}
+.lb-slide{flex:0 0 100%;height:100%;scroll-snap-align:center;display:grid;place-items:center;}
+.lb-slide img{max-width:100%;max-height:100%;object-fit:contain;}
+.lb-foot{padding:10px 16px calc(14px + var(--safe-bottom));color:#fff;display:flex;justify-content:space-between;font-size:12.5px;font-weight:700;}
+.lb-foot span{color:#aeb6cc;}
+.lb-thumbs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:0 12px 8px;}
+.lb-thumbs::-webkit-scrollbar{display:none;}
+.lb-thumbs img{flex:0 0 58px;height:44px;border-radius:8px;object-fit:cover;opacity:.45;border:2px solid transparent;}
+.lb-thumbs img.on{opacity:1;border-color:#fff;}
+
+/* Buttons, CTA, contacts, form, tabbar, sheet */
 .btn{display:flex;align-items:center;justify-content:center;gap:8px;border-radius:14px;font-weight:800;font-size:14.5px;padding:14px 18px;transition:transform .12s;}
 .btn:active{transform:scale(.97);}
 .btn-primary{background:var(--grad);color:#fff;box-shadow:0 12px 24px rgba(80,60,200,.32);}
-.btn-block{width:100%;}
-.btn-lg{padding:16px;font-size:15.5px;}
-
-/* CTA */
-.cta{margin:24px 16px 8px;background:var(--grad);border-radius:24px;padding:22px 20px;color:#fff;position:relative;overflow:hidden;box-shadow:0 18px 38px rgba(90,60,210,.3);}
-.cta:before{content:"";position:absolute;width:170px;height:170px;right:-60px;bottom:-70px;background:radial-gradient(circle,rgba(255,255,255,.2),transparent 70%);}
-.cta h3{margin:0 0 6px;font-size:19px;font-weight:800;position:relative;}
-.cta p{margin:0 0 15px;font-size:12.5px;opacity:.9;position:relative;line-height:1.4;}
-.cta .btn{position:relative;background:#fff;color:var(--brand2);}
-
-/* contacts */
-.contact-hero{margin:14px 16px 0;background:var(--grad);border-radius:24px;padding:22px 20px;color:#fff;box-shadow:0 18px 38px rgba(90,60,210,.3);}
+.btn-block{width:100%;} .btn-lg{padding:16px;font-size:15.5px;}
+.cta{margin:24px 16px 8px;background:var(--grad);border-radius:24px;padding:22px 20px;color:#fff;box-shadow:0 18px 38px rgba(90,60,210,.3);}
+.cta h3{margin:0 0 6px;font-size:19px;font-weight:800;}
+.cta p{margin:0 0 15px;font-size:12.5px;opacity:.9;line-height:1.4;}
+.cta .btn{background:#fff;color:var(--brand2);}
+.contact-hero{margin:14px 16px 0;background:var(--grad);border-radius:24px;padding:22px 20px;color:#fff;}
 .contact-hero h2{margin:0 0 4px;font-size:21px;font-weight:800;}
 .contact-hero p{margin:0;font-size:12.5px;opacity:.9;}
-.contact-row{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px;margin:12px 16px 0;box-shadow:var(--shadow);transition:transform .12s;}
-.contact-row:active{transform:scale(.98);}
+.contact-row{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px;margin:12px 16px 0;box-shadow:var(--shadow);}
 .contact-row .ic{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;color:#fff;flex:0 0 46px;}
 .contact-row .ic svg{width:22px;height:22px;}
 .contact-row .ic img{width:24px;height:24px;filter:brightness(0) invert(1);}
 .contact-row .t small{font-size:11px;color:var(--muted2);font-weight:600;display:block;}
 .contact-row .t b{font-size:15px;font-weight:800;}
 .contact-row .go{margin-left:auto;color:var(--muted2);}
-.ic-phone{background:linear-gradient(135deg,#16a34a,#15803d);}
-.ic-tg{background:linear-gradient(135deg,#2aabee,#1e96d6);}
-.ic-yt{background:linear-gradient(135deg,#ff3d3d,#d32020);}
-.ic-rt{background:linear-gradient(135deg,#00b2a9,#0a7cff);}
+.ic-phone{background:linear-gradient(135deg,#16a34a,#15803d);} .ic-tg{background:linear-gradient(135deg,#2aabee,#1e96d6);}
+.ic-yt{background:linear-gradient(135deg,#ff3d3d,#d32020);} .ic-rt{background:linear-gradient(135deg,#00b2a9,#0a7cff);}
 .ic-loc{background:linear-gradient(135deg,#f59e0b,#d97706);}
-.hours{margin:16px 16px 0;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow);}
+.hours{margin:16px 16px 0;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;}
 .hours .r{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;}
-
-/* form */
 .form-card{margin:16px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:var(--shadow);}
 .form-card h3{margin:0 0 4px;font-size:18px;font-weight:800;}
 .form-card p{margin:0 0 15px;font-size:12.5px;color:var(--muted);}
 .field{margin-bottom:11px;}
-.field input{width:100%;border:1.5px solid var(--line);border-radius:13px;padding:13px 15px;font-size:14px;font-family:inherit;outline:none;transition:border .2s;background:#fbfcfe;}
+.field input{width:100%;border:1.5px solid var(--line);border-radius:13px;padding:13px 15px;font-size:14px;font-family:inherit;outline:none;background:#fbfcfe;}
 .field input:focus{border-color:var(--brand1);background:#fff;}
 .mini-note{font-size:10.5px;color:var(--muted2);text-align:center;margin-top:10px;line-height:1.4;}
-
-/* tab bar */
 .tabbar{position:absolute;left:0;right:0;bottom:0;z-index:50;height:calc(var(--nav-h) + var(--safe-bottom));padding-bottom:var(--safe-bottom);background:rgba(255,255,255,.93);backdrop-filter:saturate(180%) blur(16px);border-top:1px solid var(--line);display:flex;}
-.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--muted2);font-size:10px;font-weight:700;position:relative;transition:color .2s;}
-.tab svg{width:23px;height:23px;transition:transform .18s;}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--muted2);font-size:10px;font-weight:700;position:relative;}
+.tab svg{width:23px;height:23px;}
 .tab.on{color:var(--brand1);}
-.tab.on svg{transform:translateY(-1px);}
 .tab.on:before{content:"";position:absolute;top:0;width:26px;height:3px;border-radius:3px;background:var(--grad);}
-
-/* bottom sheet */
-.sheet-back{position:absolute;inset:0;z-index:60;background:rgba(15,20,35,.5);backdrop-filter:blur(2px);opacity:0;visibility:hidden;transition:.25s;}
-.sheet-back.open{opacity:1;visibility:visible;}
 .sheet{position:absolute;left:0;right:0;bottom:0;z-index:61;background:var(--card);border-radius:26px 26px 0 0;padding:8px 20px calc(24px + var(--safe-bottom));transform:translateY(100%);transition:transform .32s cubic-bezier(.22,1,.36,1);max-height:88%;overflow-y:auto;}
 .sheet.open{transform:none;}
 .sheet .grip{width:42px;height:5px;border-radius:5px;background:#dbe0ec;margin:6px auto 16px;}
 .sheet h3{margin:0 0 4px;font-size:19px;font-weight:800;}
 .sheet p{margin:0 0 16px;font-size:13px;color:var(--muted);}
 .sheet-car{display:flex;gap:12px;align-items:center;background:var(--grad-soft);border-radius:16px;padding:12px;margin-bottom:16px;}
-.sheet-car img{height:52px;width:70px;object-fit:contain;}
+.sheet-car img{height:56px;width:80px;object-fit:contain;}
 .sheet-car b{font-size:14px;font-weight:800;display:block;}
-.sheet-car span{font-size:12px;color:var(--muted);font-weight:600;}
+.sheet-car span{font-size:11.5px;color:var(--muted);font-weight:600;display:block;line-height:1.35;}
 .ok-state{text-align:center;padding:14px 0 4px;}
-.ok-state .circle{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#16a34a,#15803d);display:grid;place-items:center;margin:0 auto 16px;box-shadow:0 14px 28px rgba(22,163,74,.35);}
+.ok-state .circle{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#16a34a,#15803d);display:grid;place-items:center;margin:0 auto 16px;}
 .ok-state .circle svg{width:38px;height:38px;color:#fff;}
 .ok-state h3{font-size:20px;margin-bottom:6px;}
 .ok-state p{margin-bottom:20px;}
 .fade-in{animation:fade .4s ease;}
 @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
 
-/* QR panel next to the phone (desktop only) */
+/* QR panel (desktop only) */
 .qr-aside{display:none;}
 @media(min-width:860px){
   body{gap:48px;}
   .qr-aside{display:flex;flex-direction:column;align-items:center;text-align:center;width:290px;flex:0 0 290px;background:#fff;border-radius:28px;padding:28px 24px 24px;box-shadow:0 30px 70px rgba(20,25,45,.18);}
   .qr-aside .qr-logo{height:32px;width:auto;margin-bottom:18px;}
-  .qr-aside h3{margin:0 0 6px;font-size:20px;font-weight:800;color:var(--ink);letter-spacing:-.2px;}
+  .qr-aside h3{margin:0 0 6px;font-size:20px;font-weight:800;}
   .qr-aside p{margin:0 0 18px;font-size:13px;color:var(--muted);line-height:1.45;}
   .qr-box{padding:3px;border-radius:22px;background:var(--grad);box-shadow:0 14px 30px rgba(90,60,210,.25);}
   .qr-box .in{background:#fff;border-radius:19px;padding:12px;}
-  .qr-box img{width:190px;height:190px;display:block;}
+  .qr-box img{width:190px;height:190px;}
   .qr-steps{margin:20px 0 0;padding:0;list-style:none;text-align:left;width:100%;}
   .qr-steps li{display:flex;gap:10px;align-items:center;font-size:12.5px;color:#4c566d;font-weight:600;margin-bottom:9px;}
   .qr-steps li b{flex:0 0 22px;height:22px;border-radius:7px;background:var(--grad);color:#fff;font-size:11px;display:grid;place-items:center;}
@@ -340,22 +354,16 @@ a{color:inherit;text-decoration:none;}
 <body>
 <div class="app">
 
-  <!-- Header -->
   <div class="header">
-    <button class="burger" id="burger" aria-label="Меню"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></button>
+    <button class="burger" id="burger" aria-label="Меню"><svg viewBox="0 0 24 24" fill="none" width="22" height="22"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></button>
     <img class="logo-img" src="assets/icon/logo.svg" alt="China Import Cars"/>
     <div class="spacer"></div>
-    <a class="icon-btn call" href="tel:+74956659080" aria-label="Позвонить"><svg viewBox="0 0 24 24" fill="none"><path d="M6.5 3H4A1.5 1.5 0 002.5 4.6C2.9 14 10 21.1 19.4 21.5 20.3 21.5 21 20.8 21 20v-2.4a1.3 1.3 0 00-1-1.3l-2.7-.6a1.3 1.3 0 00-1.3.4l-1 1.2A13 13 0 018 9.6l1.2-1a1.3 1.3 0 00.4-1.3L9 4.6A1.3 1.3 0 007.7 3.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a class="icon-btn" href="tel:+74956659080" aria-label="Позвонить"><svg viewBox="0 0 24 24" fill="none"><path d="M6.5 3H4A1.5 1.5 0 002.5 4.6C2.9 14 10 21.1 19.4 21.5 20.3 21.5 21 20.8 21 20v-2.4a1.3 1.3 0 00-1-1.3l-2.7-.6a1.3 1.3 0 00-1.3.4l-1 1.2A13 13 0 018 9.6l1.2-1a1.3 1.3 0 00.4-1.3L9 4.6A1.3 1.3 0 007.7 3.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
   </div>
 
-  <!-- Drawer -->
   <div class="drawer-back" id="drawerBack"></div>
   <aside class="drawer" id="drawer">
-    <div class="drawer-head">
-      <span class="lg"><img src="assets/icon/logo.svg" alt=""/></span>
-      <b>Авто из Китая</b>
-      <span>в наличии и под заказ · доставка по РФ</span>
-    </div>
+    <div class="drawer-head"><span class="lg"><img src="assets/icon/logo.svg" alt=""/></span><b>Авто из Китая</b><span>в наличии и под заказ · доставка по РФ</span></div>
     <div class="drawer-menu" id="drawerMenu"></div>
     <div class="drawer-foot">
       <a class="phone" href="tel:+74956659080">+7 (495) 665-90-80</a>
@@ -363,13 +371,12 @@ a{color:inherit;text-decoration:none;}
       <div class="drawer-soc">
         <a href="https://t.me/china_import_cars" target="_blank" rel="noopener"><img src="assets/icon/telegram.svg" alt="Telegram"></a>
         <a href="https://www.youtube.com/@CHINA_IMPORT_CARS" target="_blank" rel="noopener"><img src="assets/icon/youtube.svg" alt="YouTube"></a>
-        <a href="#" rel="noopener"><img src="assets/icon/rutube.svg" alt="Rutube"></a>
-        <a href="#" rel="noopener"><img src="assets/icon/max.svg" alt="Max"></a>
+        <a href="#"><img src="assets/icon/rutube.svg" alt="Rutube"></a>
+        <a href="#"><img src="assets/icon/max.svg" alt="Max"></a>
       </div>
     </div>
   </aside>
 
-  <!-- Viewport -->
   <div class="viewport">
 
     <!-- HOME -->
@@ -379,14 +386,12 @@ a{color:inherit;text-decoration:none;}
         <p>Доставка по всей России. Гарантия, договор с фиксацией цены, Trade-In.</p>
         <div class="hero-badges"><span>✓ Растаможка под ключ</span><span>✓ ЭПТС · СБКТС</span><span>✓ 1050+ клиентов</span></div>
       </div>
-
       <div class="hcar"><div class="hcar-track" id="heroTrack"></div><div class="hcar-dots" id="heroDots"></div></div>
-
       <div class="chips">
         <button class="chip" data-go="catalog"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l1.5-4.5A2 2 0 018.4 7h7.2a2 2 0 011.9 1.5L19 13v5h-2v-1H7v1H5v-5z" stroke="currentColor" stroke-width="1.6"/></svg>Новые</button>
         <button class="chip" data-go="catalog"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 4v5c0 4.5-3 7.8-7 9-4-1.2-7-4.5-7-9V7l7-4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>Льготный утиль</button>
         <button class="chip" data-go="catalog"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 0114-5m2-2v4h-4M20 12a8 8 0 01-14 5m-2 2v-4h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>С пробегом</button>
-        <button class="chip" data-order="Trade-In"><svg viewBox="0 0 24 24" fill="none"><path d="M8 7h11l-2.5-2.5M16 17H5l2.5 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Trade-In</button>
+        <button class="chip" data-order="1"><svg viewBox="0 0 24 24" fill="none"><path d="M8 7h11l-2.5-2.5M16 17H5l2.5 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Trade-In</button>
       </div>
 
       <div class="section-title" id="sec-leaders">Лидеры продаж <span class="link" data-go="catalog">Все авто →</span></div>
@@ -420,13 +425,13 @@ a{color:inherit;text-decoration:none;}
         <h4>Поддержка после покупки</h4>
         <p>Остаёмся на связи после выдачи авто: оперативная доставка расходных запчастей, стёкол, кузовных элементов и фирменных аксессуаров.</p>
         <div class="tags"><span>Расходники</span><span>Стёкла</span><span>Кузовные элементы</span><span>Аксессуары</span></div>
-        <button class="btn" data-order="Запчасти и аксессуары">Заказать запчасти</button>
+        <button class="btn" data-order="1">Заказать запчасти</button>
       </div>
 
       <div class="section-title" id="sec-video">Видеообзоры <span class="link" data-href="https://www.youtube.com/@CHINA_IMPORT_CARS">YouTube →</span></div>
       <div class="hscroll" id="videoScroll"></div>
 
-      <div class="section-title" id="sec-reviews-preview">Отзывы клиентов <span class="link" data-go="reviews">Все →</span></div>
+      <div class="section-title">Отзывы клиентов <span class="link" data-go="reviews">Все →</span></div>
       <div class="hscroll" id="revScroll"></div>
 
       <div class="section-title" id="sec-faq">Частые вопросы</div>
@@ -438,37 +443,48 @@ a{color:inherit;text-decoration:none;}
       <div class="cta">
         <h3>Не нашли нужную модель?</h3>
         <p>Подберём любой автомобиль из Китая под ваш запрос и бюджет</p>
-        <button class="btn" data-order="Индивидуальный подбор">Оставить заявку</button>
+        <button class="btn" data-order="1">Оставить заявку</button>
       </div>
     </section>
 
     <!-- CATALOG -->
     <section class="screen" id="screen-catalog">
-      <div class="searchbar">
-        <div class="search"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.7"/><path d="M20 20l-3-3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><input id="searchInput" placeholder="Поиск: ZEEKR, Changan, Mazda…"/></div>
-      </div>
-      <div class="filter-group">
-        <div class="filter-label">Марка</div>
-        <div class="filter-row" id="brandFilter"></div>
-        <div class="filter-label">Тип двигателя</div>
-        <div class="filter-row" id="typeFilter"></div>
-      </div>
+      <div class="searchbar"><div class="search"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.7"/><path d="M20 20l-3-3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><input id="searchInput" placeholder="Поиск: ZEEKR, Changan, Mazda…"/></div></div>
+      <div class="filter-label">Марка</div>
+      <div class="filter-row" id="brandFilter"></div>
+      <div class="filter-label">Тип двигателя</div>
+      <div class="filter-row" id="typeFilter"></div>
       <div class="count-line" id="countLine"></div>
-      <div class="catalog-grid" id="catalogGrid"></div>
+      <div class="cat-list" id="catalogList"></div>
     </section>
 
     <!-- CAR DETAIL -->
     <section class="screen" id="screen-car">
-      <div class="detail-hero">
-        <div class="detail-brand" id="carBrandBadge"></div>
-        <button class="back-btn" id="carBack"><svg viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        <div class="detail-img"><img id="carImg" alt=""/></div>
+      <div class="dg">
+        <button class="back-btn" id="carBack" aria-label="Назад"><svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="dg-track" id="dgTrack"></div>
+        <div class="dg-count" id="dgCount"></div>
+        <button class="dg-all" id="dgAll"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.8"/><rect x="13" y="3" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.8"/><rect x="3" y="13" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.8"/><rect x="13" y="13" width="8" height="8" rx="2" stroke="currentColor" stroke-width="1.8"/></svg><span id="dgAllTxt">Все фото</span></button>
       </div>
       <div class="detail-body">
-        <span class="type-badge" id="carType"></span>
-        <h2 id="carName"></h2>
-        <div class="detail-price"><span class="from">Стоимость под ключ</span><span id="carPrice"></span></div>
-        <div class="spec-list" id="carSpecs"></div>
+        <div class="d-head">
+          <span class="blogo lg" id="carLogo"></span>
+          <div><span class="type-badge" id="carType"></span><h2 id="carName"></h2></div>
+        </div>
+        <div class="d-price-lbl">Стоимость под ключ</div>
+        <div class="d-price" id="carPrice"></div>
+        <div class="key-specs" id="keySpecs"></div>
+
+        <div class="cfg">
+          <h3>Комплектация и цвета</h3>
+          <div class="hint">Выберите цвет кузова, салона и диски — фото обновятся</div>
+          <div class="cfg-block" id="cfgBody"><div class="cfg-t"><b>Цвет кузова</b><span id="cfgBodyName"></span></div><div class="sw-row" id="swBody"></div><div class="int-strip" id="bodyStrip"></div></div>
+          <div class="cfg-block" id="cfgInt"><div class="cfg-t"><b>Цвет салона</b><span id="cfgIntName"></span></div><div class="sw-row" id="swInt"></div><div class="int-strip" id="intStrip"></div></div>
+          <div class="cfg-block" id="cfgWh"><div class="cfg-t"><b>Диски</b><span id="cfgWhName"></span></div><div class="sw-row" id="swWh"></div><img class="wh-preview" id="whPreview" alt="Автомобиль с выбранными дисками"/></div>
+        </div>
+
+        <div class="specs"><h3>Характеристики</h3><div id="specList"></div></div>
+
         <div class="incl">
           <h5>В стоимость входит</h5>
           <ul>
@@ -481,8 +497,8 @@ a{color:inherit;text-decoration:none;}
         <p class="disc">Точная стоимость зависит от выбранной комплектации и курса юаня. Для уточнения свяжитесь с менеджером отдела продаж.</p>
       </div>
       <div class="order-bar">
-        <div class="p"><div class="from">от</div><div class="v" id="carBarPrice"></div></div>
-        <button class="btn btn-primary" id="carOrder" style="flex:1.3">Заказать</button>
+        <div class="p"><div class="v" id="barPrice"></div><div class="c" id="barCfg"></div></div>
+        <button class="btn btn-primary" id="carOrder" style="flex:0 0 auto;padding:14px 26px">Заказать</button>
       </div>
     </section>
 
@@ -508,8 +524,7 @@ a{color:inherit;text-decoration:none;}
         <div class="mini-note">Нажимая кнопку, вы соглашаетесь с политикой обработки персональных данных</div>
       </div>
     </section>
-
-  </div><!-- /viewport -->
+  </div>
 
   <nav class="tabbar">
     <button class="tab on" data-screen="home"><svg viewBox="0 0 24 24" fill="none"><path d="M4 11l8-7 8 7M6 10v9h12v-9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Главная</button>
@@ -521,6 +536,13 @@ a{color:inherit;text-decoration:none;}
   <div class="sheet-back" id="sheetBack"></div>
   <div class="sheet" id="sheet"><div class="grip"></div><div id="sheetContent"></div></div>
 
+  <!-- Lightbox -->
+  <div class="lb" id="lb">
+    <div class="lb-top"><div class="lb-tabs" id="lbTabs"></div><button class="lb-close" id="lbClose" aria-label="Закрыть">×</button></div>
+    <div class="lb-track" id="lbTrack"></div>
+    <div class="lb-thumbs" id="lbThumbs"></div>
+    <div class="lb-foot"><b id="lbTitle"></b><span id="lbCount"></span></div>
+  </div>
 </div>
 
 <aside class="qr-aside">
@@ -528,43 +550,23 @@ a{color:inherit;text-decoration:none;}
   <h3>Откройте на телефоне</h3>
   <p>Наведите камеру телефона на QR-код — приложение откроется на весь экран</p>
   <div class="qr-box"><div class="in"><img src="assets/qr.svg" alt="QR-код со ссылкой на приложение"/></div></div>
-  <ul class="qr-steps">
-    <li><b>1</b>Откройте камеру телефона</li>
-    <li><b>2</b>Наведите на QR-код</li>
-    <li><b>3</b>Нажмите на появившуюся ссылку</li>
-  </ul>
+  <ul class="qr-steps"><li><b>1</b>Откройте камеру телефона</li><li><b>2</b>Наведите на QR-код</li><li><b>3</b>Нажмите на появившуюся ссылку</li></ul>
   <div class="qr-url">farik9797.github.io/chinaimportcars-mobile-demo</div>
 </aside>
 
+<script src="assets/data.js"></script>
 <script>
 var A='assets/';
+function $(id){return document.getElementById(id);}
+function el(h){var d=document.createElement('div');d.innerHTML=h.trim();return d.firstChild;}
 function typeClass(t){if(/электро/i.test(t))return't-ev';if(/гибрид/i.test(t))return't-hyb';return't-gas';}
-function brandColor(b){return {ZEEKR:'#111',Changan:'#0a58ca','Li Auto':'#e63946',Mazda:'#a30d15',Toyota:'#e60012',Geely:'#1637a0',Xiaomi:'#ff6900'}[b]||'#3e76d9';}
 function fromPrice(p){var m=(p||'').match(/[\d\s]+₽/);return m?('от '+m[0].trim()):p;}
+function logoChip(c,cls){return '<span class="blogo'+(cls?' '+cls:'')+'"><img src="'+c.logo+'" alt="'+c.brand+'"></span>';}
+function spec(c,re){for(var i=0;i<c.specs.length;i++){if(re.test(c.specs[i][0]))return c.specs[i][1];}return '';}
+var BY={};CARS.forEach(function(c){BY[c.key]=c;});
 
-var HERO=[
- {name:'ZEEKR 8X',brand:'ZEEKR',type:'Гибрид',price:'от 10 300 000 ₽',img:A+'hero/zeekr-8x.webp'},
- {name:'Li L9 Livis',brand:'Li Auto',type:'Гибрид',price:'от 11 600 000 ₽',img:A+'hero/li-9-levis.webp'},
- {name:'Toyota bZ3x',brand:'Toyota',type:'Электромобиль',price:'от 2 500 000 ₽',img:A+'hero/toyota-bz3x.webp'}
-];
-
-var CARS=[
- {name:'ZEEKR 8X',brand:'ZEEKR',type:'Гибрид',price:'10 300 000 ₽ – 12 400 000 ₽',img:A+'cars/zeekr-8x.webp',specs:['Гибрид','Запас хода 1210–1416 км','898–1401 л.с. / 60–1030 кВт','Привод AWD полный']},
- {name:'ZEEKR 9X',brand:'ZEEKR',type:'Гибрид',price:'10 200 000 ₽ – 14 400 000 ₽',img:A+'cars/zeekr-9x.webp',specs:['Гибрид','Запас хода 1160–1250 км','898–1401 л.с. / 660–1030 кВт','Привод AWD полный']},
- {name:'ZEEKR 001',brand:'ZEEKR',type:'Электромобиль',price:'8 100 000 ₽ – 9 400 000 ₽',img:A+'cars/zeekr-001.webp',specs:['Электромобиль','Запас хода 730–810 км','503–925 л.с.','RWD задний / AWD полный']},
- {name:'Li L8',brand:'Li Auto',type:'Гибрид',price:'10 200 000 ₽ – 11 500 000 ₽',img:A+'cars/li-l8.webp',specs:['Гибрид','Запас хода 1679 км','571 л.с. / 420 кВт','Привод 4WD (Полный)']},
- {name:'Li L9 Livis',brand:'Li Auto',type:'Гибрид',price:'11 600 000 ₽ – 13 400 000 ₽',img:A+'cars/li-l9-livis.webp',specs:['Гибрид','Запас хода 420–1650 км','571 л.с. / 420 кВт','Привод 4WD (Полный)']},
- {name:'Xiaomi YU7',brand:'Xiaomi',type:'Электромобиль',price:'7 000 000 ₽ – 9 200 000 ₽',img:A+'cars/xiaomi-yu7.webp',specs:['Электромобиль','Запас хода 770–835 км','320–690 л.с. / 235–508 кВт','RWD задний / AWD полный']},
- {name:'Toyota bZ3x',brand:'Toyota',type:'Электромобиль',price:'2 500 000 ₽ – 3 000 000 ₽',img:A+'cars/toyota-bz3x.webp',specs:['Электромобиль','Запас хода 430–610 км','204 л.с. / 150 кВт','Привод FWD (Передний)']},
- {name:'Changan Qiyuan Nevo Q05',brand:'Changan',type:'Электромобиль',price:'2 400 000 ₽ – 2 700 000 ₽',img:A+'cars/changan-q05.webp',specs:['Электромобиль','163 л.с. / 120 кВт','Привод FWD (Передний)']},
- {name:'Changan Qiyuan Nevo A06',brand:'Changan',type:'Гибрид',price:'2 600 000 ₽ – 3 100 000 ₽',img:A+'cars/changan-a06.webp',specs:['Гибрид','163 л.с. / 120 кВт','Привод RWD (Задний)']},
- {name:'Changan Qiyuan Nevo Q06',brand:'Changan',type:'Гибрид',price:'4 500 000 ₽ – 5 100 000 ₽',img:A+'cars/changan-q06.webp',specs:['Гибрид','Запас хода 602–700 км','449 л.с. / 245–330 кВт','Привод RWD (Задний)']},
- {name:'Changan Qiyuan Nevo Q07',brand:'Changan',type:'Гибрид',price:'3 600 000 ₽ – 4 500 000 ₽',img:A+'cars/changan-q07.webp',specs:['Гибрид','98–150 л.с. / 165 кВт','Привод FWD (Передний)']},
- {name:'GEELY Coolray',brand:'Geely',type:'Бензин',price:'1 500 000 ₽ – 1 750 000 ₽',img:A+'cars/geely-coolray.webp',specs:['Бензин','126 л.с. / 93 кВт','Привод FWD (Передний)']},
- {name:'Mazda CX-50',brand:'Mazda',type:'Бензин',price:'2 700 000 ₽ – 3 900 000 ₽',img:A+'cars/mazda-cx50.webp',specs:['Бензин','155–188 л.с. / 114–138 кВт','Привод FWD передний']},
- {name:'Mazda CX-30',brand:'Mazda',type:'Бензин',price:'2 200 000 ₽ – 3 200 000 ₽',img:A+'cars/mazda-cx30.webp',specs:['Бензин','158 л.с. / 116 кВт','Привод FWD передний']},
- {name:'Mazda CX-5',brand:'Mazda',type:'Бензин',price:'2 600 000 ₽ – 3 200 000 ₽',img:A+'cars/mazda-cx5.webp',specs:['Бензин','155 л.с. / 114 кВт','Привод FWD передний']}
-];
+var HERO=[{k:'zeekr-8x',img:A+'hero/zeekr-8x.webp',price:'от 10 300 000 ₽'},{k:'li-l9-livis',img:A+'hero/li-9-levis.webp',price:'от 11 600 000 ₽'},{k:'toyota-bz3x',img:A+'hero/toyota-bz3x.webp',price:'от 2 500 000 ₽'}];
+var LEADERS=['zeekr-8x','zeekr-9x','li-l8','li-l9-livis','xiaomi-yu7','zeekr-001','changan-qiyuan-nevo-q05','changan-qiyuan-nevo-a06'];
 
 var REVIEWS=[
  {name:'Дмитрий и Анастасия',img:A+'reviews/dmitry-anastasia.webp',text:'Недавно с мужем стали владельцами Zeekr X благодаря компании China Import Cars, и остались в полном восторге! Сервис заслуживает отдельной похвалы. Нам помогли с выбором, всё объяснили, а доставка была быстрой и прозрачной. Машину получили вовремя, без единой царапинки. Рекомендуем всем друзьям!'},
@@ -578,179 +580,189 @@ var REVIEWS=[
  {name:'Марина',img:A+'reviews/marina.webp',text:'Очень рады, что обратились в данную компанию — много пересмотрели вариантов и не прогадали! Огромное спасибо Михаилу, очень грамотный менеджер, подход к каждому клиенту. Катаемся с удовольствием, машина супер! Всем советую!'},
  {name:'Максим',img:A+'reviews/maksim.webp',text:'Недавно приобрёл MG Cyberster через компанию China Import Cars и остался доволен. Особую благодарность хочу выразить менеджеру Михаилу за профессионализм. Машину доставили быстро, все документы оформлены чётко. Автомобиль прибыл в идеальном состоянии. Рекомендую!'}
 ];
-
-var VIDEOS=[
- {t:'Обзор Li L7 Рестайлинг',g:'linear-gradient(135deg,#3e76d9,#7b2be6)'},
- {t:'Обзор ZEEKR 001',g:'linear-gradient(135deg,#0891b2,#2563eb)'},
- {t:'Обзор Hongqi E-HS9',g:'linear-gradient(135deg,#a30d15,#e63946)'},
- {t:'Обзор Lotus Eletre S+',g:'linear-gradient(135deg,#0f766e,#22b8a6)'},
- {t:'Обзор Volkswagen ID.4',g:'linear-gradient(135deg,#1637a0,#4f7bd6)'},
- {t:'Обзор Honda ENS 1',g:'linear-gradient(135deg,#7c3aed,#db2777)'}
-];
-
+var VIDEOS=[['Обзор Li L7 Рестайлинг','#3e76d9,#7b2be6'],['Обзор ZEEKR 001','#0891b2,#2563eb'],['Обзор Hongqi E-HS9','#a30d15,#e63946'],['Обзор Lotus Eletre S+','#0f766e,#22b8a6'],['Обзор Volkswagen ID.4','#1637a0,#4f7bd6'],['Обзор Honda ENS 1','#7c3aed,#db2777']];
 var FAQ=[
- {q:'Как понять, что авто не битый?',a:'До покупки проверяем автомобиль по нескольким параметрам: кузов, салон, техническое состояние, документы и историю. До внесения депозита вы получаете фото, видео и отчёт по автомобилю.'},
- {q:'Как проверяете пробег и историю?',a:'Проверяем историю автомобиля, документы, заявленный пробег и общее состояние. Сопоставляем данные с внешним состоянием, износом салона и технической частью, чтобы исключить сомнительные варианты.'},
- {q:'Когда я узнаю полную стоимость?',a:'Полную стоимость под ключ (с таможней, доставкой, СБКТС и ЭПТС) вы узнаёте до внесения депозита и фиксируете её в договоре в рублях.'},
- {q:'Сколько занимает доставка?',a:'В среднем от 30 до 60 дней в зависимости от региона и модели. На каждом этапе держим вас в курсе и присылаем информацию о статусе.'},
- {q:'Какие документы я получу?',a:'Полный пакет для постановки на учёт в РФ: договор, СБКТС, ЭПТС и таможенные документы.'},
- {q:'Можно ли подобрать авто до 160 л.с.?',a:'Да, подберём автомобиль до 160 л.с. под льготный утилизационный сбор — это ощутимо снижает итоговую стоимость.'},
- {q:'Не знаю, какую модель выбрать. Что делать?',a:'Оставьте заявку — менеджер задаст несколько вопросов о задачах и бюджете и предложит подходящие варианты.'}
+ ['Как понять, что авто не битый?','До покупки проверяем автомобиль по нескольким параметрам: кузов, салон, техническое состояние, документы и историю. До внесения депозита вы получаете фото, видео и отчёт по автомобилю.'],
+ ['Как проверяете пробег и историю?','Проверяем историю автомобиля, документы, заявленный пробег и общее состояние. Сопоставляем данные с внешним состоянием, износом салона и технической частью, чтобы исключить сомнительные варианты.'],
+ ['Когда я узнаю полную стоимость?','Полную стоимость под ключ (с таможней, доставкой, СБКТС и ЭПТС) вы узнаёте до внесения депозита и фиксируете её в договоре в рублях.'],
+ ['Сколько занимает доставка?','В среднем от 30 до 60 дней в зависимости от региона и модели. На каждом этапе держим вас в курсе и присылаем информацию о статусе.'],
+ ['Какие документы я получу?','Полный пакет для постановки на учёт в РФ: договор, СБКТС, ЭПТС и таможенные документы.'],
+ ['Можно ли подобрать авто до 160 л.с.?','Да, подберём автомобиль до 160 л.с. под льготный утилизационный сбор — это ощутимо снижает итоговую стоимость.'],
+ ['Не знаю, какую модель выбрать. Что делать?','Оставьте заявку — менеджер задаст несколько вопросов о задачах и бюджете и предложит подходящие варианты.']
 ];
+var BLOG=[['Гид','Как выбрать автомобиль из Китая: на что смотреть'],['Растаможка','Растаможка авто из Китая в 2026 году: коротко о главном'],['Льготы','Льготный утильсбор: какие авто выгоднее везти'],['Новости','Новые электромобили и гибриды в наличии']];
 
-var BLOG=[
- {tag:'Гид',t:'Как выбрать автомобиль из Китая: на что смотреть'},
- {tag:'Растаможка',t:'Растаможка авто из Китая в 2026 году: коротко о главном'},
- {tag:'Льготы',t:'Льготный утильсбор: какие авто выгоднее везти'},
- {tag:'Новости',t:'Новые электромобили и гибриды в наличии'}
-];
-
-/* helpers */
-function el(h){var d=document.createElement('div');d.innerHTML=h.trim();return d.firstChild;}
-function imgFallback(im){if(im)im.onerror=function(){this.style.opacity=.2;};}
-function brandBadge(b){return '<span class="brand-badge"><i style="background:'+brandColor(b)+'"></i>'+b+'</span>';}
-
-/* hero */
-(function(){var t=document.getElementById('heroTrack'),dots=document.getElementById('heroDots');
- HERO.forEach(function(c,i){t.appendChild(el('<div class="hcar-card"><div class="hcar-img">'+brandBadge(c.brand)+'<span class="badge-type '+typeClass(c.type)+'">'+c.type+'</span><img loading="lazy" src="'+c.img+'" alt="'+c.name+'"></div><div class="hcar-body"><h3>'+c.name+'</h3><div class="price">'+c.price+'</div></div></div>'));
- dots.appendChild(el('<i'+(i===0?' class="on"':'')+'></i>'));});
- t.querySelectorAll('img').forEach(imgFallback);
+/* ---------- home ---------- */
+(function(){var t=$('heroTrack'),dots=$('heroDots');
+ HERO.forEach(function(h,i){var c=BY[h.k];
+  var card=el('<div class="hcar-card"><div class="hcar-img">'+logoChip(c)+'<span class="badge-type '+typeClass(c.type)+'">'+c.type+'</span><img class="car" src="'+h.img+'" alt="'+c.name+'"></div><div class="hcar-body"><h3>'+c.name+'</h3><div class="price">'+h.price+'</div></div></div>');
+  card.addEventListener('click',function(){openCar(c);});t.appendChild(card);
+  dots.appendChild(el('<i'+(i===0?' class="on"':'')+'></i>'));});
  t.addEventListener('scroll',function(){var i=Math.round(t.scrollLeft/(t.scrollWidth/HERO.length));dots.querySelectorAll('i').forEach(function(d,di){d.classList.toggle('on',di===i);});},{passive:true});
 })();
-
-/* leaders */
-(function(){var s=document.getElementById('leadScroll');
- CARS.slice(0,8).forEach(function(c){var card=el('<div class="lead-card"><div class="lead-img">'+brandBadge(c.brand)+'<span class="badge-type '+typeClass(c.type)+'">'+c.type+'</span><img loading="lazy" src="'+c.img+'" alt="'+c.name+'"></div><div class="lead-body"><h4>'+c.name+'</h4><div class="from">'+fromPrice(c.price)+'</div></div></div>');
- imgFallback(card.querySelector('img'));card.addEventListener('click',function(){openCar(c);});s.appendChild(card);});
+(function(){var s=$('leadScroll');
+ LEADERS.forEach(function(k){var c=BY[k];
+  var card=el('<div class="lead-card"><div class="lead-img">'+logoChip(c)+'<span class="badge-type '+typeClass(c.type)+'">'+c.type+'</span><img class="car" loading="lazy" src="'+c.img+'" alt="'+c.name+'"></div><div class="lead-body"><h4>'+c.name+'</h4><div class="from">Цена под ключ</div><div class="pr">'+fromPrice(c.price)+'</div></div></div>');
+  card.addEventListener('click',function(){openCar(c);});s.appendChild(card);});
 })();
-
-/* videos */
-(function(){var s=document.getElementById('videoScroll');
- VIDEOS.forEach(function(v){s.appendChild(el('<a class="vid-card" href="https://www.youtube.com/@CHINA_IMPORT_CARS" target="_blank" rel="noopener"><div class="vid-thumb" style="background:'+v.g+'"><div class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5l12 7-12 7z"/></svg></div></div><div class="cap">'+v.t+'<small>▶ Смотреть на YouTube</small></div></a>'));});
-})();
-
-/* reviews preview + full */
-(function(){var mini=document.getElementById('revScroll'),full=document.getElementById('reviewList');
- REVIEWS.forEach(function(r,idx){
-  if(idx<5){var m=el('<div class="rev-card mini"><div class="top"><img class="ava" loading="lazy" src="'+r.img+'" alt=""><div><div class="who">'+r.name+'</div><div class="stars">★★★★★</div></div></div><div class="txt clamp">'+r.text+'</div></div>');imgFallback(m.querySelector('img'));mini.appendChild(m);}
-  var f=el('<div class="rev-card fade-in"><div class="top"><img class="ava" loading="lazy" src="'+r.img+'" alt=""><div><div class="who">'+r.name+'</div><div class="stars">★★★★★</div></div></div><div class="txt clamp">'+r.text+'</div><span class="rev-more">Читать полностью</span></div>');
-  imgFallback(f.querySelector('img'));
+(function(){var s=$('videoScroll');VIDEOS.forEach(function(v){s.appendChild(el('<a class="vid-card" href="https://www.youtube.com/@CHINA_IMPORT_CARS" target="_blank" rel="noopener"><div class="vid-thumb" style="background:linear-gradient(135deg,'+v[1]+')"><div class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5l12 7-12 7z"/></svg></div></div><div class="cap">'+v[0]+'<small>▶ Смотреть на YouTube</small></div></a>'));});})();
+(function(){var mini=$('revScroll'),full=$('reviewList');
+ REVIEWS.forEach(function(r,i){
+  if(i<5)mini.appendChild(el('<div class="rev-card mini"><div class="top"><img class="ava" loading="lazy" src="'+r.img+'" alt=""><div><div class="who">'+r.name+'</div><div class="stars">★★★★★</div></div></div><div class="txt clamp">'+r.text+'</div></div>'));
+  var f=el('<div class="rev-card"><div class="top"><img class="ava" loading="lazy" src="'+r.img+'" alt=""><div><div class="who">'+r.name+'</div><div class="stars">★★★★★</div></div></div><div class="txt clamp">'+r.text+'</div><span class="rev-more">Читать полностью</span></div>');
   f.querySelector('.rev-more').addEventListener('click',function(){var tx=f.querySelector('.txt');tx.classList.toggle('clamp');this.textContent=tx.classList.contains('clamp')?'Читать полностью':'Свернуть';});
   full.appendChild(f);});
 })();
+(function(){var s=$('faqList');FAQ.forEach(function(q){var it=el('<div class="faq-item"><button class="faq-q">'+q[0]+'<span class="pl">+</span></button><div class="faq-a"><p>'+q[1]+'</p></div></div>');
+ it.querySelector('.faq-q').addEventListener('click',function(){var o=it.classList.toggle('open');var a=it.querySelector('.faq-a');a.style.maxHeight=o?a.scrollHeight+'px':0;});s.appendChild(it);});})();
+(function(){var s=$('blogScroll');BLOG.forEach(function(b){s.appendChild(el('<a class="blog-card" href="https://chinaimportcars.ru/blog/" target="_blank" rel="noopener"><div class="blog-thumb"><svg viewBox="0 0 24 24" fill="none"><path d="M7 3h7l5 5v13H7z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M14 3v5h5M10 13h5M10 16h5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></div><div class="bd"><small>'+b[0]+'</small><h5>'+b[1]+'</h5></div></a>'));});})();
 
-/* faq */
-(function(){var s=document.getElementById('faqList');
- FAQ.forEach(function(f){var it=el('<div class="faq-item"><button class="faq-q" style="width:100%;background:none;text-align:left">'+f.q+'<span class="pl">+</span></button><div class="faq-a"><p>'+f.a+'</p></div></div>');
- it.querySelector('.faq-q').addEventListener('click',function(){var open=it.classList.toggle('open');var a=it.querySelector('.faq-a');a.style.maxHeight=open?a.scrollHeight+'px':0;});
- s.appendChild(it);});
-})();
-
-/* blog */
-(function(){var s=document.getElementById('blogScroll');
- BLOG.forEach(function(b){s.appendChild(el('<a class="blog-card" href="https://chinaimportcars.ru/blog/" target="_blank" rel="noopener"><div class="blog-thumb"><svg viewBox="0 0 24 24" fill="none"><path d="M7 3h7l5 5v13H7z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M14 3v5h5M10 13h5M10 16h5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></div><div class="bd"><small>'+b.tag+'</small><h5>'+b.t+'</h5></div></a>'));});
-})();
-
-/* catalog */
+/* ---------- catalog ---------- */
 var curBrand='Все',curType='Все';
 function renderCatalog(){
- var grid=document.getElementById('catalogGrid'),q=(document.getElementById('searchInput').value||'').toLowerCase();
- var list=CARS.filter(function(c){
-  var okB=curBrand==='Все'||c.brand===curBrand;
-  var okT=curType==='Все'||c.type===curType;
-  var okQ=!q||c.name.toLowerCase().indexOf(q)>-1||c.brand.toLowerCase().indexOf(q)>-1;
-  return okB&&okT&&okQ;});
- document.getElementById('countLine').textContent='Найдено автомобилей: '+list.length;
- grid.innerHTML='';
- if(!list.length){grid.innerHTML='<div class="empty" style="grid-column:1/3">Ничего не найдено.<br>Измените параметры фильтра.</div>';return;}
- list.forEach(function(c){var card=el('<div class="cat-card fade-in"><div class="cat-img">'+brandBadge(c.brand)+'<span class="badge-type '+typeClass(c.type)+'">'+c.type+'</span><img loading="lazy" src="'+c.img+'" alt="'+c.name+'"></div><div class="cat-body"><h4>'+c.name+'</h4><div class="from">'+fromPrice(c.price)+'</div></div></div>');
- imgFallback(card.querySelector('img'));card.addEventListener('click',function(){openCar(c);});grid.appendChild(card);});
+ var q=($('searchInput').value||'').toLowerCase(),list=$('catalogList');
+ var res=CARS.filter(function(c){return (curBrand==='Все'||c.brand===curBrand)&&(curType==='Все'||c.type===curType)&&(!q||(c.name+' '+c.brand).toLowerCase().indexOf(q)>-1);});
+ $('countLine').textContent='Найдено автомобилей: '+res.length;
+ list.innerHTML='';
+ if(!res.length){list.innerHTML='<div class="empty">Ничего не найдено.<br>Измените параметры фильтра.</div>';return;}
+ res.forEach(function(c){
+  var chips=[spec(c,/запас хода/i),spec(c,/двигатель$/i),spec(c,/привод/i)].filter(Boolean).map(function(x){return '<span>'+x+'</span>';}).join('');
+  var dots=c.colors.slice(0,5).map(function(x){return '<img src="'+x.sw+'" alt="">';}).join('')+(c.colors.length?'<em>'+c.colors.length+' цв.</em>':'');
+  var card=el('<div class="car-card fade-in"><div class="car-img">'+logoChip(c)+'<span class="badge-type '+typeClass(c.type)+'">'+c.type+'</span><img class="car" loading="lazy" src="'+c.img+'" alt="'+c.name+'"></div><div class="car-body"><h4>'+c.name+'</h4><div class="from">Цена под ключ</div><div class="row"><div class="pr">'+fromPrice(c.price)+'</div><div class="dots">'+dots+'</div></div><div class="spec-chips">'+chips+'</div></div></div>');
+  card.addEventListener('click',function(){openCar(c);});list.appendChild(card);});
 }
 (function(){
- var brands=['Все'].concat([...new Set(CARS.map(function(c){return c.brand;}))]);
- var bf=document.getElementById('brandFilter');
- brands.forEach(function(b,i){var c=el('<button class="fchip'+(i===0?' on':'')+'">'+b+'</button>');c.addEventListener('click',function(){curBrand=b;bf.querySelectorAll('.fchip').forEach(function(x){x.classList.remove('on');});c.classList.add('on');renderCatalog();});bf.appendChild(c);});
- var types=['Все','Электромобиль','Гибрид','Бензин'];var tf=document.getElementById('typeFilter');
- types.forEach(function(t,i){var c=el('<button class="fchip'+(i===0?' on':'')+'">'+t+'</button>');c.addEventListener('click',function(){curType=t;tf.querySelectorAll('.fchip').forEach(function(x){x.classList.remove('on');});c.classList.add('on');renderCatalog();});tf.appendChild(c);});
- document.getElementById('searchInput').addEventListener('input',renderCatalog);
- renderCatalog();
+ var bf=$('brandFilter'),seen={},brands=[];CARS.forEach(function(c){if(!seen[c.brand]){seen[c.brand]=c.logo;brands.push(c.brand);}});
+ var all=el('<button class="bchip on"><span class="all">Все</span>Все марки</button>');all.dataset.b='Все';bf.appendChild(all);
+ brands.forEach(function(b){var ch=el('<button class="bchip"><span class="bl"><img src="'+seen[b]+'" alt=""></span>'+b+'</button>');ch.dataset.b=b;bf.appendChild(ch);});
+ bf.querySelectorAll('.bchip').forEach(function(ch){ch.addEventListener('click',function(){curBrand=ch.dataset.b;bf.querySelectorAll('.bchip').forEach(function(x){x.classList.remove('on');});ch.classList.add('on');renderCatalog();});});
+ var tf=$('typeFilter');['Все','Электромобиль','Гибрид','Бензин'].forEach(function(t,i){var ch=el('<button class="fchip'+(i?'':' on')+'">'+t+'</button>');ch.addEventListener('click',function(){curType=t;tf.querySelectorAll('.fchip').forEach(function(x){x.classList.remove('on');});ch.classList.add('on');renderCatalog();});tf.appendChild(ch);});
+ $('searchInput').addEventListener('input',renderCatalog);renderCatalog();
 })();
 
-/* car detail */
-var lastScreen='home';
-function openCar(c){
- var im=document.getElementById('carImg');im.src=c.img;im.alt=c.name;imgFallback(im);
- var bb=document.getElementById('carBrandBadge');bb.innerHTML='<i style="background:'+brandColor(c.brand)+'"></i>'+c.brand;
- var tb=document.getElementById('carType');tb.textContent=c.type;tb.className='type-badge '+typeClass(c.type);
- document.getElementById('carName').textContent=c.name;
- document.getElementById('carPrice').textContent=c.price;
- document.getElementById('carBarPrice').textContent=fromPrice(c.price).replace('от ','');
- var sp=document.getElementById('carSpecs');sp.innerHTML='';
- c.specs.forEach(function(s){sp.appendChild(el('<div class="spec-row"><div class="si">'+specIcon(s)+'</div><div><div class="sk">'+specKey(s)+'</div><div class="sv">'+specVal(s)+'</div></div></div>'));});
- document.getElementById('carOrder').onclick=function(){openSheet(c);};
- var act=document.querySelector('.screen.active');lastScreen=act?act.id.replace('screen-',''):'catalog';if(lastScreen==='car')lastScreen='catalog';
- showScreen('car',true);document.getElementById('screen-car').scrollTop=0;
+/* ---------- car detail + configurator ---------- */
+var cur=null,sel={c:0,i:0,w:0},lastScreen='home';
+function dgRender(picked){
+ var c=cur,col=c.colors[sel.c];
+ var photos=((col&&col.imgs.length)?col.imgs:c.gallery).map(function(s){return {src:s};}),studio={src:c.img,cut:true};
+ var slides=picked?photos.concat([studio]):[studio].concat(photos);
+ var t=$('dgTrack');t.innerHTML='';t.scrollLeft=0;
+ slides.forEach(function(s,i){var sl=el('<div class="dg-slide"><img class="'+(s.cut?'cut':'')+'" '+(i>1?'loading="lazy" ':'')+'src="'+s.src+'" alt=""></div>');sl.addEventListener('click',function(){openLB('ext',s.src);});t.appendChild(sl);});
+ var n=slides.length;$('dgCount').textContent='1 / '+n;
+ t.onscroll=function(){$('dgCount').textContent=(Math.round(t.scrollLeft/t.clientWidth)+1)+' / '+n;};
 }
-document.getElementById('carBack').addEventListener('click',function(){showScreen(lastScreen);});
-var SIC={range:'<svg viewBox="0 0 24 24" fill="none"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>',power:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 015 12v3H7v-3A7 7 0 0112 2z" stroke="currentColor" stroke-width="1.6"/><path d="M9 20h6M10 22h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',drive:'<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',type:'<svg viewBox="0 0 24 24" fill="none"><path d="M3 13l2-5a3 3 0 012.8-2h8.4A3 3 0 0119 8l2 5v5h-2v-1H5v1H3v-5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>'};
-function specIcon(s){if(/запас хода/i.test(s))return SIC.range;if(/л\.с|квт/i.test(s))return SIC.power;if(/привод/i.test(s))return SIC.drive;return SIC.type;}
-function specKey(s){if(/запас хода/i.test(s))return'Запас хода';if(/привод/i.test(s))return'Привод';if(/л\.с|квт/i.test(s))return'Мощность';return'Тип двигателя';}
-function specVal(s){return s.replace(/^запас хода\s*/i,'').replace(/^привод\s*/i,'');}
+function cfgRender(){
+ var c=cur;
+ // body colours
+ $('cfgBody').style.display=c.colors.length?'':'none';
+ var sb=$('swBody');sb.innerHTML='';
+ c.colors.forEach(function(x,i){var b=el('<button class="sw'+(i===sel.c?' on':'')+'" title="'+x.name+'"><img src="'+x.sw+'" alt="'+x.name+'"></button>');b.addEventListener('click',function(){sel.c=i;cfgRender();dgRender(true);});sb.appendChild(b);});
+ var col=c.colors[sel.c];$('cfgBodyName').textContent=col?col.name:'';
+ var bs=$('bodyStrip');bs.innerHTML='';
+ if(col)col.imgs.forEach(function(s){var im=el('<img loading="lazy" src="'+s+'" alt="">');im.addEventListener('click',function(){openLB('ext',s);});bs.appendChild(im);});
+ // interior
+ $('cfgInt').style.display=c.interiors.length?'':'none';
+ var si=$('swInt');si.innerHTML='';
+ c.interiors.forEach(function(x,i){var b=el('<button class="sw'+(i===sel.i?' on':'')+'" title="'+x.name+'"><img src="'+x.sw+'" alt="'+x.name+'"></button>');b.addEventListener('click',function(){sel.i=i;cfgRender();});si.appendChild(b);});
+ var it=c.interiors[sel.i];$('cfgIntName').textContent=it?it.name:'';
+ var st=$('intStrip');st.innerHTML='';
+ if(it)it.imgs.forEach(function(s){var im=el('<img loading="lazy" src="'+s+'" alt="">');im.addEventListener('click',function(){openLB('int',s);});st.appendChild(im);});
+ // wheels
+ $('cfgWh').style.display=c.wheels.length?'':'none';
+ var sw=$('swWh');sw.innerHTML='';
+ c.wheels.forEach(function(x,i){var b=el('<button class="wh'+(i===sel.w?' on':'')+'"><img loading="lazy" src="'+x.sw+'" alt="'+x.name+'"></button>');b.addEventListener('click',function(){sel.w=i;cfgRender();});sw.appendChild(b);});
+ var w=c.wheels[sel.w];
+ $('cfgWhName').textContent=w?('Вариант '+(sel.w+1)+' из '+c.wheels.length):'';
+ var wp=$('whPreview');wp.style.display=w?'':'none';
+ if(w){wp.src=w.img;wp.onclick=function(){openLB('wh',w.img);};}
+ $('barCfg').textContent=cfgText();
+}
+function cfgText(){var c=cur,p=[];if(c.colors[sel.c])p.push(c.colors[sel.c].name);if(c.interiors[sel.i])p.push('салон '+c.interiors[sel.i].name.toLowerCase());if(c.wheels[sel.w])p.push('диски №'+(sel.w+1));return p.join(' · ');}
+function allPhotos(c){
+ var ext=[],seen={};function add(a,s){if(s&&!seen[s]){seen[s]=1;a.push(s);}}
+ add(ext,c.img);c.gallery.forEach(function(s){add(ext,s);});c.colors.forEach(function(x){x.imgs.forEach(function(s){add(ext,s);});});
+ var int=[];c.interiors.forEach(function(x){x.imgs.forEach(function(s){add(int,s);});});
+ var wh=[];c.wheels.forEach(function(x){add(wh,x.img);});
+ return {ext:ext,int:int,wh:wh};
+}
+function openCar(c){
+ cur=c;sel={c:0,i:0,w:0};
+ $('carLogo').innerHTML='<img src="'+c.logo+'" alt="'+c.brand+'">';
+ var tb=$('carType');tb.textContent=c.type;tb.className='type-badge '+typeClass(c.type);
+ $('carName').textContent=c.name;$('carPrice').textContent=c.price;$('barPrice').textContent=fromPrice(c.price);
+ var ks=[['Запас хода',spec(c,/запас хода/i)],['Мощность',spec(c,/двигатель$/i)],['Привод',spec(c,/привод/i)],['Разгон 0–100',spec(c,/разгон/i)]].filter(function(x){return x[1];}).slice(0,3);
+ $('keySpecs').innerHTML=ks.map(function(x){return '<div><small>'+x[0]+'</small><b>'+x[1]+'</b></div>';}).join('');
+ $('specList').innerHTML=c.specs.map(function(s){return '<div class="spec-row"><span>'+s[0]+'</span><b>'+s[1]+'</b></div>';}).join('');
+ var ap=allPhotos(c);$('dgAllTxt').textContent='Все фото · '+(ap.ext.length+ap.int.length+ap.wh.length);
+ dgRender();cfgRender();
+ var act=document.querySelector('.screen.active');lastScreen=act?act.id.replace('screen-',''):'catalog';if(lastScreen==='car')lastScreen='catalog';
+ showScreen('car',true);$('screen-car').scrollTop=0;
+}
+$('carBack').addEventListener('click',function(){showScreen(lastScreen);});
+$('carOrder').addEventListener('click',function(){openSheet(cur);});
+$('dgAll').addEventListener('click',function(e){e.stopPropagation();openLB('ext');});
 
-/* screens + nav */
+/* ---------- lightbox (all photos) ---------- */
+var LB={groups:null,g:'ext'};
+function openLB(group,startSrc){
+ var ap=allPhotos(cur);LB.groups=[['ext','Экстерьер',ap.ext],['int','Салон',ap.int],['wh','Диски',ap.wh]].filter(function(x){return x[2].length;});
+ var tabs=$('lbTabs');tabs.innerHTML='';
+ LB.groups.forEach(function(g){var b=el('<button class="lb-tab">'+g[1]+' · '+g[2].length+'</button>');b.addEventListener('click',function(){lbShow(g[0]);});b.dataset.g=g[0];tabs.appendChild(b);});
+ $('lb').classList.add('open');lbShow(group||'ext',startSrc);
+}
+function lbShow(g,startSrc){
+ var grp=LB.groups.filter(function(x){return x[0]===g;})[0]||LB.groups[0];LB.g=grp[0];
+ $('lbTabs').querySelectorAll('.lb-tab').forEach(function(b){b.classList.toggle('on',b.dataset.g===grp[0]);});
+ var tr=$('lbTrack'),th=$('lbThumbs');tr.innerHTML='';th.innerHTML='';
+ grp[2].forEach(function(s,i){tr.appendChild(el('<div class="lb-slide"><img loading="lazy" src="'+s+'" alt=""></div>'));
+  var t=el('<img loading="lazy" src="'+s+'" alt="">');t.addEventListener('click',function(){tr.scrollTo({left:i*tr.clientWidth,behavior:'smooth'});});th.appendChild(t);});
+ var n=grp[2].length;$('lbTitle').textContent=cur.name+' · '+grp[1];
+ function upd(){var i=Math.round(tr.scrollLeft/tr.clientWidth);$('lbCount').textContent=(i+1)+' / '+n;th.querySelectorAll('img').forEach(function(x,j){x.classList.toggle('on',j===i);});var a=th.children[i];if(a)a.scrollIntoView({inline:'center',block:'nearest'});}
+ tr.onscroll=upd;
+ var start=Math.max(0,grp[2].indexOf(startSrc));
+ requestAnimationFrame(function(){tr.scrollLeft=start*tr.clientWidth;upd();});
+}
+$('lbClose').addEventListener('click',function(){$('lb').classList.remove('open');});
+
+/* ---------- navigation ---------- */
 function showScreen(name,keepTab){
  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
- var sc=document.getElementById('screen-'+name);if(sc){sc.classList.add('active');sc.scrollTop=0;}
+ var sc=$('screen-'+name);if(sc){sc.classList.add('active');sc.scrollTop=0;}
  if(!keepTab)document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('on',t.dataset.screen===name);});
 }
 document.querySelectorAll('.tab').forEach(function(t){t.addEventListener('click',function(){showScreen(t.dataset.screen);});});
 function goTo(target){
- var screens=['home','catalog','reviews','contacts'];
- if(screens.indexOf(target)>-1){showScreen(target);}
- else{
-  showScreen('home');document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('on',t.dataset.screen==='home');});
-  setTimeout(function(){var s=document.getElementById('sec-'+target);if(s){document.getElementById('screen-home').scrollTo({top:s.offsetTop-8,behavior:'smooth'});}},70);
- }
+ if(['home','catalog','reviews','contacts'].indexOf(target)>-1){showScreen(target);return;}
+ showScreen('home');
+ setTimeout(function(){var s=$('sec-'+target);if(s)$('screen-home').scrollTo({top:s.offsetTop-8,behavior:'smooth'});},70);
 }
 document.querySelectorAll('[data-go]').forEach(function(b){b.addEventListener('click',function(){goTo(b.dataset.go);});});
 document.querySelectorAll('[data-href]').forEach(function(b){b.addEventListener('click',function(){window.open(b.dataset.href,'_blank');});});
+var DMENU=[['Главная','home','<path d="M4 11l8-7 8 7M6 10v9h12v-9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>'],
+ ['Каталог','catalog','<rect x="4" y="4" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.7"/><rect x="13" y="4" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.7"/><rect x="4" y="13" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.7"/><rect x="13" y="13" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.7"/>'],
+ ['О компании','about','<circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M5 20c0-3.3 3.1-6 7-6s7 2.7 7 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>'],
+ ['Отзывы','reviews','<path d="M12 4l2.3 4.7 5.2.8-3.8 3.6.9 5.1L12 15.8 7.4 18.2l.9-5.1L4.5 9.5l5.2-.8L12 4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>'],
+ ['Доставка и оплата','delivery','<path d="M3 13l2-5a3 3 0 012.8-2h8.4A3 3 0 0119 8l2 5v5h-2v-1H5v1H3v-5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>'],
+ ['Запчасти и аксессуары','parts','<circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>'],
+ ['Видеообзоры','video','<rect x="3" y="6" width="18" height="12" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M11 9.5l3.5 2.5L11 14.5z" fill="currentColor"/>'],
+ ['Блог и новости','blog','<path d="M7 3h7l5 5v13H7z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 3v5h5" stroke="currentColor" stroke-width="1.5"/>'],
+ ['Контакты','contacts','<path d="M6.5 3H4A1.5 1.5 0 002.5 4.6C2.9 14 10 21.1 19.4 21.5 20.3 21.5 21 20.8 21 20v-2.4a1.3 1.3 0 00-1-1.3l-2.7-.6a1.3 1.3 0 00-1.3.4l-1 1.2A13 13 0 018 9.6l1.2-1a1.3 1.3 0 00.4-1.3L9 4.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>']];
+DMENU.forEach(function(d){var it=el('<button class="dm-item"><span class="di"><svg viewBox="0 0 24 24" fill="none">'+d[2]+'</svg></span>'+d[0]+'<span class="go">›</span></button>');it.addEventListener('click',function(){closeDrawer();goTo(d[1]);});$('drawerMenu').appendChild(it);});
+function openDrawer(){$('drawer').classList.add('open');$('drawerBack').classList.add('open');}
+function closeDrawer(){$('drawer').classList.remove('open');$('drawerBack').classList.remove('open');}
+$('burger').addEventListener('click',openDrawer);$('drawerBack').addEventListener('click',closeDrawer);
 
-/* drawer */
-var DMENU=[
- {t:'Главная',go:'home',ic:'<path d="M4 11l8-7 8 7M6 10v9h12v-9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>'},
- {t:'Каталог',go:'catalog',ic:'<rect x="4" y="4" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.7"/><rect x="13" y="4" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.7"/><rect x="4" y="13" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.7"/><rect x="13" y="13" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.7"/>'},
- {t:'О компании',go:'about',ic:'<circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M5 20c0-3.3 3.1-6 7-6s7 2.7 7 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>'},
- {t:'Отзывы',go:'reviews',ic:'<path d="M12 4l2.3 4.7 5.2.8-3.8 3.6.9 5.1L12 15.8 7.4 18.2l.9-5.1L4.5 9.5l5.2-.8L12 4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>'},
- {t:'Доставка и оплата',go:'delivery',ic:'<path d="M3 13l2-5a3 3 0 012.8-2h8.4A3 3 0 0119 8l2 5v5h-2v-1H5v1H3v-5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>'},
- {t:'Запчасти и аксессуары',go:'parts',ic:'<path d="M12 8a4 4 0 100 8 4 4 0 000-8z" stroke="currentColor" stroke-width="1.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>'},
- {t:'Видеообзоры',go:'video',ic:'<rect x="3" y="6" width="18" height="12" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M11 9.5l3.5 2.5L11 14.5z" fill="currentColor"/>'},
- {t:'Блог и новости',go:'blog',ic:'<path d="M7 3h7l5 5v13H7z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 3v5h5" stroke="currentColor" stroke-width="1.5"/>'},
- {t:'Контакты',go:'contacts',ic:'<path d="M6.5 3H4A1.5 1.5 0 002.5 4.6C2.9 14 10 21.1 19.4 21.5 20.3 21.5 21 20.8 21 20v-2.4a1.3 1.3 0 00-1-1.3l-2.7-.6a1.3 1.3 0 00-1.3.4l-1 1.2A13 13 0 018 9.6l1.2-1a1.3 1.3 0 00.4-1.3L9 4.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>'}
-];
-(function(){var m=document.getElementById('drawerMenu');
- DMENU.forEach(function(d){var it=el('<button class="dm-item"><span class="di"><svg viewBox="0 0 24 24" fill="none">'+d.ic+'</svg></span>'+d.t+'<span class="go">›</span></button>');
- it.addEventListener('click',function(){closeDrawer();goTo(d.go);});m.appendChild(it);});
-})();
-var drawer=document.getElementById('drawer'),drawerBack=document.getElementById('drawerBack');
-function openDrawer(){drawer.classList.add('open');drawerBack.classList.add('open');}
-function closeDrawer(){drawer.classList.remove('open');drawerBack.classList.remove('open');}
-document.getElementById('burger').addEventListener('click',openDrawer);
-drawerBack.addEventListener('click',closeDrawer);
-
-/* order sheet */
-var sheet=document.getElementById('sheet'),sheetBack=document.getElementById('sheetBack');
+/* ---------- order sheet ---------- */
 function openSheet(car){
- var head=car?('<div class="sheet-car"><img src="'+car.img+'" alt=""><div><b>'+car.name+'</b><span>'+fromPrice(car.price)+'</span></div></div>'):'';
- var title=car?'Заказать автомобиль':'Оставить заявку';
- document.getElementById('sheetContent').innerHTML='<h3>'+title+'</h3><p>Менеджер свяжется с вами и рассчитает точную стоимость</p>'+head+'<form id="sheetForm"><div class="field"><input required placeholder="Ваше имя"></div><div class="field"><input required type="tel" placeholder="+7 (___) ___-__-__"></div><button class="btn btn-primary btn-block btn-lg" type="submit">Отправить заявку</button></form><div class="mini-note">Нажимая кнопку, вы соглашаетесь с политикой обработки персональных данных</div>';
- document.getElementById('sheetForm').addEventListener('submit',function(e){e.preventDefault();sheetSuccess();});
- sheetBack.classList.add('open');sheet.classList.add('open');
+ var head=car?('<div class="sheet-car"><img src="'+car.img+'" alt=""><div><b>'+car.name+'</b><span>'+fromPrice(car.price)+'</span><span>'+cfgText()+'</span></div></div>'):'';
+ $('sheetContent').innerHTML='<h3>'+(car?'Заказать автомобиль':'Оставить заявку')+'</h3><p>Менеджер свяжется с вами и рассчитает точную стоимость</p>'+head+'<form id="sheetForm"><div class="field"><input required placeholder="Ваше имя"></div><div class="field"><input required type="tel" placeholder="+7 (___) ___-__-__"></div><button class="btn btn-primary btn-block btn-lg" type="submit">Отправить заявку</button></form><div class="mini-note">Нажимая кнопку, вы соглашаетесь с политикой обработки персональных данных</div>';
+ $('sheetForm').addEventListener('submit',function(e){e.preventDefault();$('sheetContent').innerHTML='<div class="ok-state"><div class="circle"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Заявка отправлена!</h3><p>Менеджер China Import Cars перезвонит вам в ближайшее время</p><button class="btn btn-primary btn-block btn-lg" id="okClose">Отлично</button></div>';$('okClose').addEventListener('click',closeSheet);});
+ $('sheetBack').classList.add('open');$('sheet').classList.add('open');
 }
-function sheetSuccess(){document.getElementById('sheetContent').innerHTML='<div class="ok-state"><div class="circle"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Заявка отправлена!</h3><p>Менеджер China Import Cars перезвонит вам в ближайшее время</p><button class="btn btn-primary btn-block btn-lg" id="okClose">Отлично</button></div>';document.getElementById('okClose').addEventListener('click',closeSheet);}
-function closeSheet(){sheetBack.classList.remove('open');sheet.classList.remove('open');}
-sheetBack.addEventListener('click',closeSheet);
+function closeSheet(){$('sheetBack').classList.remove('open');$('sheet').classList.remove('open');}
+$('sheetBack').addEventListener('click',closeSheet);
 document.querySelectorAll('[data-order]').forEach(function(b){b.addEventListener('click',function(){openSheet(null);});});
-document.getElementById('contactForm').addEventListener('submit',function(e){e.preventDefault();this.innerHTML='<div class="ok-state"><div class="circle"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Заявка отправлена!</h3><p>Мы перезвоним вам в течение 15 минут</p></div>';});
+$('contactForm').addEventListener('submit',function(e){e.preventDefault();this.innerHTML='<div class="ok-state"><div class="circle"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Заявка отправлена!</h3><p>Мы перезвоним вам в течение 15 минут</p></div>';});
 </script>
 </body>
 </html>
