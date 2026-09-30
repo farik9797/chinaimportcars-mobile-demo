@@ -1,0 +1,20 @@
+<svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group 75">
+<rect id="Rectangle 30" x="0.5" y="0.5" width="44" height="44" rx="2.5" stroke="url(#paint0_linear_804_1446)"/>
+<g id="Mask group">
+<mask id="mask0_804_1446" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="13" y="12" width="20" height="19">
+<path id="Vector" d="M31.3764 12.2159L13.6573 19.9679C12.9443 20.3289 12.7031 21.0518 13.4849 21.4441L18.0307 23.083L29.0216 15.3768C29.6217 14.893 30.2361 15.022 29.7074 15.5542L20.2677 25.2508L19.9712 29.3544C20.2458 29.988 20.7487 29.991 21.0695 29.6761L23.6811 26.8725L28.154 30.6723C29.1928 31.3701 29.7581 30.9198 29.9816 29.641L32.9154 13.8806C33.22 12.3064 32.7006 11.6128 31.3764 12.2159Z" fill="white"/>
+</mask>
+<g mask="url(#mask0_804_1446)">
+<rect id="Rectangle 96" x="13" y="12" width="20" height="19" fill="#29A9EA"/>
+</g>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_804_1446" x1="22.5" y1="0" x2="22.5" y2="45" gradientUnits="userSpaceOnUse">
+<stop stop-color="#08B8CF"/>
+<stop offset="0.479167" stop-color="#3F75D9"/>
+<stop offset="1" stop-color="#7532E5"/>
+</linearGradient>
+</defs>
+</svg>
