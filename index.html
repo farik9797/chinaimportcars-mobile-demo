@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1"/>
+<meta name="theme-color" content="#3e76d9"/>
+<title>China Import Cars — мобильное приложение</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand1:#3e76d9; --brand2:#7b2be6;
+  --grad:linear-gradient(135deg,#3e76d9 0%,#7b2be6 100%);
+  --grad-soft:linear-gradient(135deg,#eef3ff 0%,#f3edff 100%);
+  --price-grad:linear-gradient(90deg,#06b6d4,#4f46e5);
+  --ink:#17203a; --ink2:#1a2233; --muted:#67728c; --muted2:#9aa3b7;
+  --line:#e9edf3; --bg:#f5f7fb; --card:#ffffff;
+  --shadow:0 10px 30px rgba(30,40,70,.08);
+  --shadow-lg:0 18px 44px rgba(30,40,70,.16);
+  --radius:20px; --radius-sm:14px;
+  --nav-h:64px; --header-h:56px;
+  --safe-top:env(safe-area-inset-top,0px);
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  background:#dfe4ee; color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  display:flex;justify-content:center;
+}
+img{max-width:100%;display:block;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+a{color:inherit;text-decoration:none;}
+
+/* ===== Phone frame (desktop) ===== */
+.app{
+  position:relative;
+  width:100%;max-width:440px;min-height:100vh;
+  background:var(--bg);
+  display:flex;flex-direction:column;
+  overflow:hidden;
+}
+@media(min-width:480px){
+  body{align-items:center;padding:24px 0;background:radial-gradient(1200px 600px at 50% -10%,#e9edfb,#dfe4ee);}
+  .app{
+    height:900px;min-height:auto;max-height:92vh;
+    border-radius:44px;border:11px solid #10131c;
+    box-shadow:0 40px 90px rgba(20,25,45,.45);
+  }
+}
+
+/* ===== Header ===== */
+.header{
+  position:sticky;top:0;z-index:40;
+  height:calc(var(--header-h) + var(--safe-top));
+  padding-top:var(--safe-top);
+  background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:10px;padding-left:16px;padding-right:12px;
+}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:15px;letter-spacing:.2px;}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:var(--grad);display:grid;place-items:center;box-shadow:0 6px 14px rgba(80,60,200,.32);}
+.logo .mark svg{width:17px;height:17px;}
+.logo b{color:var(--brand2);}
+.logo small{display:block;font-size:9px;font-weight:600;color:var(--muted2);letter-spacing:1.4px;margin-top:1px;text-transform:uppercase;}
+.header .spacer{flex:1;}
+.icon-btn{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:#f0f3f9;color:var(--brand1);transition:transform .12s,background .2s;}
+.icon-btn:active{transform:scale(.9);}
+.icon-btn.call{background:var(--grad);color:#fff;box-shadow:0 8px 18px rgba(80,60,200,.32);}
+
+/* ===== Scroll area / screens ===== */
+.viewport{flex:1;position:relative;overflow:hidden;}
+.screen{
+  position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  padding-bottom:calc(var(--nav-h) + var(--safe-bottom) + 20px);
+  opacity:0;visibility:hidden;transform:translateX(16px);
+  transition:opacity .28s ease,transform .28s ease,visibility .28s;
+}
+.screen.active{opacity:1;visibility:visible;transform:none;}
+.screen::-webkit-scrollbar{width:0;}
+
+.pad{padding:16px;}
+.section-title{font-size:19px;font-weight:800;letter-spacing:-.2px;margin:22px 16px 12px;display:flex;align-items:center;justify-content:space-between;}
+.section-title .link{font-size:13px;font-weight:700;color:var(--brand1);}
+
+/* ===== Hero ===== */
+.hero{
+  margin:14px 16px 0;border-radius:26px;padding:20px 20px 16px;color:#fff;
+  background:var(--grad);position:relative;overflow:hidden;
+  box-shadow:0 20px 40px rgba(90,60,210,.30);
+}
+.hero:before{content:"";position:absolute;width:220px;height:220px;right:-70px;top:-90px;background:radial-gradient(circle,rgba(255,255,255,.22),transparent 70%);}
+.hero:after{content:"";position:absolute;width:160px;height:160px;left:-50px;bottom:-70px;background:radial-gradient(circle,rgba(255,255,255,.14),transparent 70%);}
+.hero h1{position:relative;font-size:23px;line-height:1.15;font-weight:800;margin:0 0 6px;letter-spacing:-.4px;}
+.hero p{position:relative;font-size:12.5px;line-height:1.45;opacity:.92;margin:0 0 14px;max-width:80%;}
+.hero-badges{position:relative;display:flex;gap:7px;flex-wrap:wrap;}
+.hero-badges span{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(4px);font-size:10.5px;font-weight:600;padding:5px 10px;border-radius:20px;}
+
+/* ===== Hero carousel ===== */
+.hcar{margin:14px 0 2px;}
+.hcar-track{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 16px 6px;scrollbar-width:none;}
+.hcar-track::-webkit-scrollbar{display:none;}
+.hcar-card{
+  scroll-snap-align:center;flex:0 0 86%;background:var(--card);border-radius:22px;
+  box-shadow:var(--shadow);overflow:hidden;border:1px solid var(--line);
+}
+.hcar-img{height:168px;background:linear-gradient(180deg,#f2f5fb,#e9edf6);display:grid;place-items:center;position:relative;}
+.hcar-img img{height:150px;width:auto;object-fit:contain;filter:drop-shadow(0 14px 18px rgba(20,30,60,.22));}
+.hcar-tag{position:absolute;top:12px;left:12px;font-size:10px;font-weight:700;color:#fff;background:rgba(23,32,58,.62);backdrop-filter:blur(4px);padding:4px 10px;border-radius:20px;}
+.hcar-body{padding:13px 15px 15px;}
+.hcar-body h3{margin:0 0 3px;font-size:16px;font-weight:800;}
+.hcar-body .price{font-weight:800;font-size:15px;background:var(--price-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.hcar-dots{display:flex;justify-content:center;gap:6px;margin-top:8px;}
+.hcar-dots i{width:6px;height:6px;border-radius:50%;background:#c7cede;transition:width .25s,background .25s;}
+.hcar-dots i.on{width:20px;background:var(--grad);border-radius:6px;}
+
+/* ===== Quick chips ===== */
+.chips{display:flex;gap:9px;overflow-x:auto;padding:16px 16px 4px;scrollbar-width:none;}
+.chips::-webkit-scrollbar{display:none;}
+.chip{
+  flex:0 0 auto;display:flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--line);
+  border-radius:14px;padding:11px 15px;font-size:13px;font-weight:700;box-shadow:0 6px 16px rgba(30,40,70,.05);
+  transition:transform .12s;
+}
+.chip:active{transform:scale(.95);}
+.chip svg{width:17px;height:17px;color:var(--brand1);}
+
+/* ===== Leaders (horizontal) ===== */
+.hscroll{display:flex;gap:13px;overflow-x:auto;padding:0 16px 8px;scrollbar-width:none;}
+.hscroll::-webkit-scrollbar{display:none;}
+.lead-card{
+  flex:0 0 200px;background:var(--card);border-radius:20px;border:1px solid var(--line);
+  box-shadow:var(--shadow);overflow:hidden;transition:transform .12s;
+}
+.lead-card:active{transform:scale(.97);}
+.lead-img{height:130px;background:linear-gradient(180deg,#f2f5fb,#e9edf6);display:grid;place-items:center;position:relative;}
+.lead-img img{height:112px;width:auto;object-fit:contain;filter:drop-shadow(0 10px 14px rgba(20,30,60,.18));}
+.badge-type{position:absolute;top:10px;left:10px;font-size:9.5px;font-weight:700;padding:4px 9px;border-radius:20px;color:#fff;}
+.t-ev{background:linear-gradient(90deg,#0891b2,#2563eb);}
+.t-hyb{background:linear-gradient(90deg,#7c3aed,#db2777);}
+.t-gas{background:linear-gradient(90deg,#ea580c,#d97706);}
+.lead-body{padding:12px 13px 14px;}
+.lead-body h4{margin:0 0 5px;font-size:14px;font-weight:800;line-height:1.2;min-height:2.4em;}
+.lead-body .price{font-size:13.5px;font-weight:800;color:var(--ink);}
+.lead-body .from{font-size:10px;color:var(--muted2);font-weight:600;margin-bottom:1px;}
+
+/* ===== Trust strip ===== */
+.trust{margin:6px 16px 0;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:15px;box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(3,1fr);gap:6px;text-align:center;}
+.trust .num{font-size:20px;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.trust .lbl{font-size:10.5px;color:var(--muted);font-weight:600;margin-top:2px;line-height:1.25;}
+
+/* ===== Advantages grid ===== */
+.adv-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;padding:0 16px;}
+.adv{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px;box-shadow:0 8px 20px rgba(30,40,70,.05);}
+.adv .ic{width:40px;height:40px;border-radius:12px;background:var(--grad-soft);display:grid;place-items:center;margin-bottom:10px;color:var(--brand2);}
+.adv .ic svg{width:21px;height:21px;}
+.adv h5{margin:0 0 3px;font-size:13.5px;font-weight:800;}
+.adv p{margin:0;font-size:11.5px;color:var(--muted);line-height:1.35;}
+
+/* ===== Steps ===== */
+.steps{padding:0 16px;}
+.step{display:flex;gap:14px;align-items:flex-start;position:relative;padding-bottom:18px;}
+.step:not(:last-child):before{content:"";position:absolute;left:17px;top:36px;bottom:0;width:2px;background:linear-gradient(#d7ddec,transparent);}
+.step .n{flex:0 0 36px;height:36px;border-radius:12px;background:var(--grad);color:#fff;display:grid;place-items:center;font-weight:800;font-size:15px;box-shadow:0 8px 16px rgba(80,60,200,.28);}
+.step .c h5{margin:2px 0 3px;font-size:14px;font-weight:800;}
+.step .c p{margin:0;font-size:12px;color:var(--muted);line-height:1.4;}
+
+/* ===== Review cards ===== */
+.rev-card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:16px;margin:0 16px 13px;overflow:hidden;}
+.rev-card .top{display:flex;gap:13px;align-items:center;margin-bottom:11px;}
+.rev-card .ava{width:54px;height:54px;border-radius:15px;object-fit:cover;flex:0 0 54px;background:#eef1f6;}
+.rev-card .who{font-size:15px;font-weight:800;}
+.rev-card .stars{color:#f5b301;font-size:12px;letter-spacing:1px;margin-top:2px;}
+.rev-card .txt{font-size:13px;line-height:1.55;color:#4c566d;}
+.rev-card .txt.clamp{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;}
+.rev-more{font-size:12.5px;font-weight:700;color:var(--brand1);margin-top:7px;display:inline-block;}
+.rev-mini{flex:0 0 250px;}
+
+/* ===== Catalog ===== */
+.searchbar{position:sticky;top:0;z-index:20;background:var(--bg);padding:14px 16px 8px;}
+.search{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;box-shadow:0 6px 16px rgba(30,40,70,.05);}
+.search svg{width:18px;height:18px;color:var(--muted2);flex:0 0 18px;}
+.search input{border:none;outline:none;flex:1;font-size:14px;font-family:inherit;background:none;color:var(--ink);}
+.filters{display:flex;gap:8px;overflow-x:auto;padding:0 16px 12px;scrollbar-width:none;}
+.filters::-webkit-scrollbar{display:none;}
+.fchip{flex:0 0 auto;padding:9px 15px;border-radius:12px;font-size:12.5px;font-weight:700;background:var(--card);border:1px solid var(--line);color:var(--muted);transition:.18s;}
+.fchip.on{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 8px 16px rgba(80,60,200,.28);}
+.catalog-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 16px;}
+.cat-card{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);transition:transform .12s;}
+.cat-card:active{transform:scale(.97);}
+.cat-img{height:110px;background:linear-gradient(180deg,#f2f5fb,#e9edf6);display:grid;place-items:center;position:relative;}
+.cat-img img{height:94px;width:auto;object-fit:contain;filter:drop-shadow(0 8px 12px rgba(20,30,60,.16));}
+.cat-body{padding:11px 12px 13px;}
+.cat-body h4{margin:0 0 5px;font-size:13px;font-weight:800;line-height:1.2;min-height:2.4em;}
+.cat-body .from{font-size:9.5px;color:var(--muted2);font-weight:600;}
+.cat-body .price{font-size:13px;font-weight:800;}
+.count-line{padding:2px 16px 10px;font-size:12px;color:var(--muted);font-weight:600;}
+
+/* ===== Car detail ===== */
+.detail-hero{background:linear-gradient(180deg,#eef2fb,#f5f7fb);position:relative;padding:8px 0 6px;}
+.detail-img{height:240px;display:grid;place-items:center;}
+.detail-img img{height:210px;width:auto;object-fit:contain;filter:drop-shadow(0 20px 22px rgba(20,30,60,.24));}
+.back-btn{position:absolute;top:12px;left:14px;z-index:5;width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.9);box-shadow:var(--shadow);display:grid;place-items:center;color:var(--ink);}
+.back-btn:active{transform:scale(.9);}
+.detail-body{padding:4px 16px 0;}
+.detail-body .type-badge{display:inline-block;font-size:10.5px;font-weight:700;color:#fff;padding:5px 12px;border-radius:20px;margin-bottom:9px;}
+.detail-body h2{margin:0 0 8px;font-size:23px;font-weight:800;letter-spacing:-.4px;}
+.detail-price{font-size:24px;font-weight:800;background:var(--price-grad);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:2px;}
+.detail-price .from{font-size:11px;color:var(--muted2);font-weight:600;-webkit-text-fill-color:var(--muted2);display:block;}
+.spec-list{margin:18px 0 4px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--card);}
+.spec-row{display:flex;align-items:center;gap:12px;padding:13px 15px;border-bottom:1px solid var(--line);}
+.spec-row:last-child{border-bottom:none;}
+.spec-row .si{width:34px;height:34px;border-radius:10px;background:var(--grad-soft);display:grid;place-items:center;color:var(--brand2);flex:0 0 34px;}
+.spec-row .si svg{width:18px;height:18px;}
+.spec-row .sk{font-size:11px;color:var(--muted);font-weight:600;}
+.spec-row .sv{font-size:13.5px;font-weight:700;margin-top:1px;}
+.incl{margin:18px 0 6px;background:var(--grad-soft);border-radius:18px;padding:16px;}
+.incl h5{margin:0 0 10px;font-size:14px;font-weight:800;}
+.incl li{list-style:none;font-size:12.5px;color:#42506b;font-weight:600;display:flex;gap:9px;align-items:flex-start;margin-bottom:8px;}
+.incl ul{margin:0;padding:0;}
+.incl li svg{width:16px;height:16px;color:#16a34a;flex:0 0 16px;margin-top:1px;}
+.disc{font-size:11px;color:var(--muted2);line-height:1.4;margin:12px 2px 0;}
+
+/* ===== sticky order bar in detail ===== */
+.order-bar{
+  position:sticky;bottom:0;margin-top:20px;
+  background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border-top:1px solid var(--line);
+  padding:12px 16px calc(12px + var(--safe-bottom));display:flex;gap:11px;align-items:center;
+}
+.order-bar .p{flex:1;}
+.order-bar .p .from{font-size:10px;color:var(--muted2);font-weight:600;}
+.order-bar .p .v{font-size:16px;font-weight:800;}
+
+/* ===== Buttons ===== */
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;border-radius:14px;font-weight:800;font-size:14.5px;padding:14px 18px;transition:transform .12s,box-shadow .2s;}
+.btn:active{transform:scale(.97);}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 12px 24px rgba(80,60,200,.32);}
+.btn-ghost{background:#fff;color:var(--brand1);border:1.5px solid #dfe6f5;}
+.btn-block{width:100%;}
+.btn-lg{padding:16px;font-size:15.5px;}
+
+/* ===== CTA card ===== */
+.cta{margin:22px 16px 8px;background:var(--grad);border-radius:24px;padding:22px 20px;color:#fff;position:relative;overflow:hidden;box-shadow:0 18px 38px rgba(90,60,210,.3);}
+.cta:before{content:"";position:absolute;width:170px;height:170px;right:-60px;bottom:-70px;background:radial-gradient(circle,rgba(255,255,255,.2),transparent 70%);}
+.cta h3{margin:0 0 6px;font-size:19px;font-weight:800;position:relative;}
+.cta p{margin:0 0 15px;font-size:12.5px;opacity:.9;position:relative;line-height:1.4;}
+.cta .btn{position:relative;background:#fff;color:var(--brand2);}
+
+/* ===== Contacts ===== */
+.contact-hero{margin:14px 16px 0;background:var(--grad);border-radius:24px;padding:22px 20px;color:#fff;box-shadow:0 18px 38px rgba(90,60,210,.3);}
+.contact-hero h2{margin:0 0 4px;font-size:21px;font-weight:800;}
+.contact-hero p{margin:0;font-size:12.5px;opacity:.9;}
+.contact-row{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px;margin:12px 16px 0;box-shadow:var(--shadow);transition:transform .12s;}
+.contact-row:active{transform:scale(.98);}
+.contact-row .ic{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;color:#fff;flex:0 0 46px;}
+.contact-row .ic svg{width:22px;height:22px;}
+.contact-row .t small{font-size:11px;color:var(--muted2);font-weight:600;display:block;}
+.contact-row .t b{font-size:15px;font-weight:800;}
+.contact-row .go{margin-left:auto;color:var(--muted2);}
+.ic-phone{background:linear-gradient(135deg,#16a34a,#15803d);}
+.ic-tg{background:linear-gradient(135deg,#2aabee,#1e96d6);}
+.ic-yt{background:linear-gradient(135deg,#ff3d3d,#d32020);}
+.ic-loc{background:linear-gradient(135deg,#f59e0b,#d97706);}
+.hours{margin:16px 16px 0;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow);}
+.hours .r{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;}
+.hours .r b{font-weight:700;}
+
+/* ===== Form card ===== */
+.form-card{margin:16px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:var(--shadow);}
+.form-card h3{margin:0 0 4px;font-size:18px;font-weight:800;}
+.form-card p{margin:0 0 15px;font-size:12.5px;color:var(--muted);}
+.field{margin-bottom:11px;}
+.field input{width:100%;border:1.5px solid var(--line);border-radius:13px;padding:13px 15px;font-size:14px;font-family:inherit;outline:none;transition:border .2s;background:#fbfcfe;}
+.field input:focus{border-color:var(--brand1);background:#fff;}
+.mini-note{font-size:10.5px;color:var(--muted2);text-align:center;margin-top:10px;line-height:1.4;}
+
+/* ===== Bottom nav ===== */
+.tabbar{
+  position:absolute;left:0;right:0;bottom:0;z-index:50;
+  height:calc(var(--nav-h) + var(--safe-bottom));padding-bottom:var(--safe-bottom);
+  background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(16px);
+  border-top:1px solid var(--line);
+  display:flex;align-items:stretch;
+}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--muted2);font-size:10px;font-weight:700;position:relative;transition:color .2s;}
+.tab svg{width:23px;height:23px;transition:transform .18s;}
+.tab.on{color:var(--brand1);}
+.tab.on svg{transform:translateY(-1px);}
+.tab.on:before{content:"";position:absolute;top:0;width:26px;height:3px;border-radius:3px;background:var(--grad);}
+.tab .b{position:absolute;top:8px;right:calc(50% - 20px);min-width:15px;height:15px;padding:0 4px;border-radius:8px;background:#ef4444;color:#fff;font-size:9px;font-weight:800;display:grid;place-items:center;}
+
+/* ===== Bottom sheet ===== */
+.sheet-back{position:absolute;inset:0;z-index:60;background:rgba(15,20,35,.5);backdrop-filter:blur(2px);opacity:0;visibility:hidden;transition:.25s;}
+.sheet-back.open{opacity:1;visibility:visible;}
+.sheet{
+  position:absolute;left:0;right:0;bottom:0;z-index:61;background:var(--card);
+  border-radius:26px 26px 0 0;padding:8px 20px calc(24px + var(--safe-bottom));
+  transform:translateY(100%);transition:transform .32s cubic-bezier(.22,1,.36,1);
+  max-height:88%;overflow-y:auto;
+}
+.sheet.open{transform:none;}
+.sheet .grip{width:42px;height:5px;border-radius:5px;background:#dbe0ec;margin:6px auto 16px;}
+.sheet h3{margin:0 0 4px;font-size:19px;font-weight:800;}
+.sheet p{margin:0 0 16px;font-size:13px;color:var(--muted);}
+.sheet-car{display:flex;gap:12px;align-items:center;background:var(--grad-soft);border-radius:16px;padding:12px;margin-bottom:16px;}
+.sheet-car img{height:52px;width:70px;object-fit:contain;}
+.sheet-car b{font-size:14px;font-weight:800;display:block;}
+.sheet-car span{font-size:12px;color:var(--muted);font-weight:600;}
+
+/* success */
+.ok-state{text-align:center;padding:14px 0 4px;}
+.ok-state .circle{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#16a34a,#15803d);display:grid;place-items:center;margin:0 auto 16px;box-shadow:0 14px 28px rgba(22,163,74,.35);}
+.ok-state .circle svg{width:38px;height:38px;color:#fff;}
+.ok-state h3{font-size:20px;margin-bottom:6px;}
+.ok-state p{margin-bottom:20px;}
+
+.demo-flag{position:fixed;top:8px;left:50%;transform:translateX(-50%);z-index:200;background:rgba(23,32,58,.82);color:#fff;font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.3px;pointer-events:none;}
+@media(min-width:480px){.demo-flag{top:32px;}}
+.fade-in{animation:fade .4s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">
+      <span class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M3 13l2-5a3 3 0 012.8-2h8.4A3 3 0 0119 8l2 5v5a1 1 0 01-1 1h-1a1 1 0 01-1-1v-1H6v1a1 1 0 01-1 1H4a1 1 0 01-1-1v-5z" stroke="#fff" stroke-width="1.7" stroke-linejoin="round"/><circle cx="7" cy="15" r="1.3" fill="#fff"/><circle cx="17" cy="15" r="1.3" fill="#fff"/></svg></span>
+      <div>CHINA IMPORT <b>CARS</b><small>Авто из Китая</small></div>
+    </div>
+    <div class="spacer"></div>
+    <a class="icon-btn call" href="tel:+74956659080" aria-label="Позвонить"><svg viewBox="0 0 24 24" fill="none"><path d="M6.5 3H4A1.5 1.5 0 002.5 4.6C2.9 14 10 21.1 19.4 21.5 20.3 21.5 21 20.8 21 20v-2.4a1.3 1.3 0 00-1-1.3l-2.7-.6a1.3 1.3 0 00-1.3.4l-1 1.2A13 13 0 018 9.6l1.2-1a1.3 1.3 0 00.4-1.3L9 4.6A1.3 1.3 0 007.7 3.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </div>
+
+  <!-- Viewport -->
+  <div class="viewport">
+
+    <!-- ===== HOME ===== -->
+    <section class="screen active" id="screen-home">
+      <div class="hero">
+        <h1>Автомобили из Китая<br/>в наличии и под заказ</h1>
+        <p>Доставка по всей России. Гарантия, договор с фиксацией цены, Trade-In.</p>
+        <div class="hero-badges"><span>✓ Растаможка под ключ</span><span>✓ ЭПТС · СБКТС</span><span>✓ 1050+ клиентов</span></div>
+      </div>
+
+      <div class="hcar">
+        <div class="hcar-track" id="heroTrack"></div>
+        <div class="hcar-dots" id="heroDots"></div>
+      </div>
+
+      <div class="chips">
+        <button class="chip"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l1.5-4.5A2 2 0 018.4 7h7.2a2 2 0 011.9 1.5L19 13v5h-2v-1H7v1H5v-5z" stroke="currentColor" stroke-width="1.6"/></svg>Новые</button>
+        <button class="chip"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 4v5c0 4.5-3 7.8-7 9-4-1.2-7-4.5-7-9V7l7-4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>Льготный утиль</button>
+        <button class="chip"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 0114-5m2-2v4h-4M20 12a8 8 0 01-14 5m-2 2v-4h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>С пробегом</button>
+        <button class="chip"><svg viewBox="0 0 24 24" fill="none"><path d="M8 7h11l-2.5-2.5M16 17H5l2.5 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Trade-In</button>
+      </div>
+
+      <div class="section-title">Лидеры продаж <span class="link" data-goto="catalog">Все авто →</span></div>
+      <div class="hscroll" id="leadScroll"></div>
+
+      <div class="trust">
+        <div><div class="num">1050+</div><div class="lbl">довольных клиентов</div></div>
+        <div><div class="num">15+</div><div class="lbl">брендов из Китая</div></div>
+        <div><div class="num">30–60</div><div class="lbl">дней доставка</div></div>
+      </div>
+
+      <div class="section-title">Почему выбирают нас</div>
+      <div class="adv-grid">
+        <div class="adv"><div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h5>Гарантия</h5><p>Гарантия на все привезённые автомобили</p></div>
+        <div class="adv"><div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M7 3h7l5 5v13H7z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v5h5M9.5 13h6M9.5 16.5h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><h5>Фикс. цена</h5><p>Договор с фиксацией цены в рублях</p></div>
+        <div class="adv"><div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M8 7h11l-2.5-2.5M16 17H5l2.5 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h5>Trade-In</h5><p>Обмен вашего авто с доплатой</p></div>
+        <div class="adv"><div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M3 13l2-5a3 3 0 012.8-2h8.4A3 3 0 0119 8l2 5v5h-2v-1H5v1H3v-5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="7.5" cy="15" r="1.2" fill="currentColor"/><circle cx="16.5" cy="15" r="1.2" fill="currentColor"/></svg></div><h5>Доставка по РФ</h5><p>В любой регион России под ключ</p></div>
+      </div>
+
+      <div class="section-title">Как мы работаем</div>
+      <div class="steps">
+        <div class="step"><div class="n">1</div><div class="c"><h5>Подбор автомобиля</h5><p>Помогаем выбрать модель и комплектацию под ваш бюджет</p></div></div>
+        <div class="step"><div class="n">2</div><div class="c"><h5>Договор</h5><p>Заключаем договор с фиксацией цены в рублях</p></div></div>
+        <div class="step"><div class="n">3</div><div class="c"><h5>Доставка и растаможка</h5><p>Логистика, таможенное оформление, СБКТС и ЭПТС</p></div></div>
+        <div class="step"><div class="n">4</div><div class="c"><h5>Выдача авто</h5><p>Получаете готовый к эксплуатации автомобиль</p></div></div>
+      </div>
+
+      <div class="section-title">Отзывы клиентов <span class="link" data-goto="reviews">Все →</span></div>
+      <div class="hscroll" id="revScroll"></div>
+
+      <div class="cta">
+        <h3>Не нашли нужную модель?</h3>
+        <p>Подберём любой автомобиль из Китая под ваш запрос и бюджет</p>
+        <button class="btn" data-order="Индивидуальный подбор">Оставить заявку</button>
+      </div>
+    </section>
+
+    <!-- ===== CATALOG ===== -->
+    <section class="screen" id="screen-catalog">
+      <div class="searchbar">
+        <div class="search"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.7"/><path d="M20 20l-3-3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><input id="searchInput" placeholder="Поиск: ZEEKR, Changan, Mazda…"/></div>
+      </div>
+      <div class="filters" id="filters"></div>
+      <div class="count-line" id="countLine"></div>
+      <div class="catalog-grid" id="catalogGrid"></div>
+    </section>
+
+    <!-- ===== CAR DETAIL ===== -->
+    <section class="screen" id="screen-car">
+      <div class="detail-hero">
+        <button class="back-btn" id="carBack"><svg viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="detail-img"><img id="carImg" alt=""/></div>
+      </div>
+      <div class="detail-body">
+        <span class="type-badge" id="carType"></span>
+        <h2 id="carName"></h2>
+        <div class="detail-price"><span class="from">Стоимость под ключ</span><span id="carPrice"></span></div>
+        <div class="spec-list" id="carSpecs"></div>
+        <div class="incl">
+          <h5>В стоимость входит</h5>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Таможенная очистка РФ</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Брокерские и логистические услуги</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Страхование, СБКТС, ЭПТС</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Утилизационный сбор</li>
+          </ul>
+        </div>
+        <p class="disc">Точная стоимость зависит от выбранной комплектации и курса юаня. Для уточнения свяжитесь с менеджером отдела продаж.</p>
+      </div>
+      <div class="order-bar">
+        <div class="p"><div class="from">от</div><div class="v" id="carBarPrice"></div></div>
+        <button class="btn btn-primary" id="carOrder" style="flex:1.3">Заказать</button>
+      </div>
+    </section>
+
+    <!-- ===== REVIEWS ===== -->
+    <section class="screen" id="screen-reviews">
+      <div class="section-title" style="margin-top:16px">Отзывы клиентов</div>
+      <div class="count-line">Реальные истории покупателей China Import Cars</div>
+      <div id="reviewList"></div>
+    </section>
+
+    <!-- ===== CONTACTS ===== -->
+    <section class="screen" id="screen-contacts">
+      <div class="contact-hero">
+        <h2>Свяжитесь с нами</h2>
+        <p>Ответим на вопросы и подберём автомобиль</p>
+      </div>
+      <a class="contact-row" href="tel:+74956659080"><div class="ic ic-phone"><svg viewBox="0 0 24 24" fill="none"><path d="M6.5 3H4A1.5 1.5 0 002.5 4.6C2.9 14 10 21.1 19.4 21.5 20.3 21.5 21 20.8 21 20v-2.4a1.3 1.3 0 00-1-1.3l-2.7-.6a1.3 1.3 0 00-1.3.4l-1 1.2A13 13 0 018 9.6l1.2-1a1.3 1.3 0 00.4-1.3L9 4.6A1.3 1.3 0 007.7 3.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="t"><small>Телефон</small><b>+7 (495) 665-90-80</b></div><span class="go">›</span></a>
+      <a class="contact-row" href="https://t.me/china_import_cars" target="_blank" rel="noopener"><div class="ic ic-tg"><svg viewBox="0 0 24 24" fill="none"><path d="M21 5L3 12l5 2 2 5 3-4 4 3 4-13z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div><div class="t"><small>Telegram</small><b>@china_import_cars</b></div><span class="go">›</span></a>
+      <a class="contact-row" href="https://www.youtube.com/@CHINA_IMPORT_CARS" target="_blank" rel="noopener"><div class="ic ic-yt"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="12" rx="3.5" stroke="currentColor" stroke-width="1.6"/><path d="M11 9.5l3.5 2.5L11 14.5z" fill="currentColor"/></svg></div><div class="t"><small>YouTube</small><b>Обзоры авто на канале</b></div><span class="go">›</span></a>
+      <a class="contact-row" href="#"><div class="ic ic-loc"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21c5-4.5 7-7.6 7-11a7 7 0 10-14 0c0 3.4 2 6.5 7 11z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.6"/></svg></div><div class="t"><small>Работаем по всей России</small><b>Доставка в ваш регион</b></div><span class="go">›</span></a>
+
+      <div class="hours">
+        <div class="r"><span>Пн — Пт</span><b>9:00 — 20:00</b></div>
+        <div class="r"><span>Сб — Вс</span><b>10:00 — 18:00</b></div>
+      </div>
+
+      <div class="form-card">
+        <h3>Обратный звонок</h3>
+        <p>Оставьте номер — перезвоним в течение 15 минут</p>
+        <form id="contactForm">
+          <div class="field"><input required name="name" placeholder="Ваше имя"/></div>
+          <div class="field"><input required name="phone" type="tel" placeholder="+7 (___) ___-__-__"/></div>
+          <button class="btn btn-primary btn-block btn-lg" type="submit">Оставить заявку</button>
+        </form>
+        <div class="mini-note">Нажимая кнопку, вы соглашаетесь с политикой обработки персональных данных</div>
+      </div>
+    </section>
+
+  </div><!-- /viewport -->
+
+  <!-- Bottom nav -->
+  <nav class="tabbar">
+    <button class="tab on" data-screen="home"><svg viewBox="0 0 24 24" fill="none"><path d="M4 11l8-7 8 7M6 10v9h12v-9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Главная</button>
+    <button class="tab" data-screen="catalog"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.8"/><rect x="13" y="4" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.8"/><rect x="4" y="13" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.8"/><rect x="13" y="13" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.8"/></svg>Каталог</button>
+    <button class="tab" data-screen="reviews"><svg viewBox="0 0 24 24" fill="none"><path d="M12 4l2.3 4.7 5.2.8-3.8 3.6.9 5.1L12 15.8 7.4 18.2l.9-5.1L4.5 9.5l5.2-.8L12 4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>Отзывы</button>
+    <button class="tab" data-screen="contacts"><svg viewBox="0 0 24 24" fill="none"><path d="M6.5 3H4A1.5 1.5 0 002.5 4.6C2.9 14 10 21.1 19.4 21.5 20.3 21.5 21 20.8 21 20v-2.4a1.3 1.3 0 00-1-1.3l-2.7-.6a1.3 1.3 0 00-1.3.4l-1 1.2A13 13 0 018 9.6l1.2-1a1.3 1.3 0 00.4-1.3L9 4.6A1.3 1.3 0 007.7 3.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>Контакты</button>
+  </nav>
+
+  <!-- Bottom sheet (order) -->
+  <div class="sheet-back" id="sheetBack"></div>
+  <div class="sheet" id="sheet">
+    <div class="grip"></div>
+    <div id="sheetContent"></div>
+  </div>
+
+</div><!-- /app -->
+
+<script>
+/* ================= DATA ================= */
+var IMG='https://chinaimportcars.ru';
+function typeClass(t){ if(/электро/i.test(t))return't-ev'; if(/гибрид/i.test(t))return't-hyb'; return't-gas'; }
+function fromPrice(p){ var m=(p||'').match(/[\d\s]+₽/); return m?('от '+m[0].trim()):p; }
+
+var HERO=[
+ {name:'ZEEKR 8X',type:'Гибрид',price:'от 10 300 000 ₽',img:'/catalog/view/theme/chinaimportcars/assets/img/images/zeekr-8x.webp'},
+ {name:'Li L9 Livis',type:'Гибрид',price:'от 11 600 000 ₽',img:'/catalog/view/theme/chinaimportcars/assets/img/images/li-9-levis.webp'},
+ {name:'Toyota bZ3x',type:'Электромобиль',price:'от 2 500 000 ₽',img:'/catalog/view/theme/chinaimportcars/assets/img/images/toyota-bz3x.webp'}
+];
+
+var CARS=[
+ {name:'ZEEKR 8X',type:'Гибрид',price:'10 300 000 ₽ – 12 400 000 ₽',img:'/image/cache/catalog/5%20etap/Zeekr%208X/zeekr%208x-1000x1000.webp',specs:['Гибрид','Запас хода 1210–1416 км','898–1401 л.с. / 60–1030 кВт','Привод AWD полный']},
+ {name:'ZEEKR 9X',type:'Гибрид',price:'10 200 000 ₽ – 14 400 000 ₽',img:'/image/cache/catalog/5%20etap/Zeekr%209X/1%20(10)-1000x1000.webp',specs:['Гибрид','Запас хода 1160–1250 км','898–1401 л.с. / 660–1030 кВт','Привод AWD полный']},
+ {name:'Li L8',type:'Гибрид',price:'10 200 000 ₽ – 11 500 000 ₽',img:'/image/cache/catalog/5%20etap/Li%20i8/Li%20L8%202026/1%20(11)-1000x1000.webp',specs:['Гибрид','Запас хода 1679 км','571 л.с. / 420 кВт','Привод 4WD (Полный)']},
+ {name:'Li L9 Livis',type:'Гибрид',price:'11 600 000 ₽ – 13 400 000 ₽',img:'/image/cache/catalog/5%20etap/Li%20L9%20Livis/Li-1000x1000.webp',specs:['Гибрид','Запас хода 420–1650 км','571 л.с. / 420 кВт','Привод 4WD (Полный)']},
+ {name:'Xiaomi YU7',type:'Электромобиль',price:'7 000 000 ₽ – 9 200 000 ₽',img:'/image/cache/catalog/5%20etap/Xiaomi%20YU7/Xiaomi%20YU7%202026/2%20(7)-1000x1000.webp',specs:['Электромобиль','Запас хода 770–835 км','320–690 л.с. / 235–508 кВт','RWD задний / AWD полный']},
+ {name:'ZEEKR 001',type:'Электромобиль',price:'8 100 000 ₽ – 9 400 000 ₽',img:'/image/cache/catalog/5%20etap/Zeekr%20001%202/1%20(11)-1000x1000.webp',specs:['Электромобиль','Запас хода 730–810 км','503–925 л.с.','RWD задний / AWD полный']},
+ {name:'Toyota bZ3x',type:'Электромобиль',price:'2 500 000 ₽ – 3 000 000 ₽',img:'/image/cache/catalog/5%20etap/Toyota%20bZ3x/7-1000x1000.webp',specs:['Электромобиль','Запас хода 430–610 км','204 л.с. / 150 кВт','Привод FWD (Передний)']},
+ {name:'Changan Qiyuan Nevo Q05',type:'Электромобиль',price:'2 400 000 ₽ – 2 700 000 ₽',img:'/image/cache/catalog/5%20etap/Changan%20Qiyuan%20(Nevo)%20Q05/2%20(7)-1000x1000.webp',specs:['Электромобиль','163 л.с. / 120 кВт','Привод FWD (Передний)']},
+ {name:'Changan Qiyuan Nevo A06',type:'Гибрид',price:'2 600 000 ₽ – 3 100 000 ₽',img:'/image/cache/catalog/5%20etap/Changan%20Qiyuan%20(Nevo)%20A06/1%20(11)-1000x1000.webp',specs:['Гибрид','163 л.с. / 120 кВт','Привод RWD (Задний)']},
+ {name:'Changan Qiyuan Nevo Q06',type:'Гибрид',price:'4 500 000 ₽ – 5 100 000 ₽',img:'/image/cache/catalog/5%20etap/Changan%20Qiyuan%20(Nevo)%20Q06/p-2%20(1)-1000x1000.webp',specs:['Гибрид','Запас хода 602–700 км','449 л.с. / 245–330 кВт','Привод RWD (Задний)']},
+ {name:'Changan Qiyuan Nevo Q07',type:'Гибрид',price:'3 600 000 ₽ – 4 500 000 ₽',img:'/image/cache/catalog/5%20etap/Changan%20Qiyuan%20(Nevo)%20Q07/3%20(2)-1000x1000.webp',specs:['Гибрид','98–150 л.с. / 165 кВт','Привод FWD (Передний)']},
+ {name:'GEELY Coolray',type:'Бензин',price:'1 500 000 ₽ – 1 750 000 ₽',img:'/image/cache/catalog/5%20etap/GEELY%20Coolray/5%20(1)-1000x1000.webp',specs:['Бензин','126 л.с. / 93 кВт','Привод FWD (Передний)']},
+ {name:'Mazda CX-50',type:'Бензин',price:'2 700 000 ₽ – 3 900 000 ₽',img:'/image/cache/catalog/5%20etap/Mazda%20CX-50/mazda%20CX-50-1000x1000.webp',specs:['Бензин','155–188 л.с. / 114–138 кВт','Привод FWD передний']},
+ {name:'Mazda CX-30',type:'Бензин',price:'2 200 000 ₽ – 3 200 000 ₽',img:'/image/cache/catalog/5%20etap/Mazda%20CX-30/mazda%20CX-30-1000x1000.webp',specs:['Бензин','158 л.с. / 116 кВт','Привод FWD передний']},
+ {name:'Mazda CX-5',type:'Бензин',price:'2 600 000 ₽ – 3 200 000 ₽',img:'/image/cache/catalog/5%20etap/Mazda%20CX-5/mazda%20CX-5-1000x1000.webp',specs:['Бензин','155 л.с. / 114 кВт','Привод FWD передний']}
+];
+
+var REVIEWS=[
+ {name:'Дмитрий и Анастасия',img:'/image/cache/catalog/reviews/dmitry-anastasia-800x600.webp',text:'Недавно с мужем стали владельцами Zeekr X благодаря компании China Import Cars, и остались в полном восторге! Сервис заслуживает отдельной похвалы. Нам помогли с выбором, всё объяснили, а доставка была быстрой и прозрачной. Машину получили вовремя, без единой царапинки. Рекомендуем всем друзьям!'},
+ {name:'Виктория',img:'/image/cache/catalog/reviews/viktoria2-800x600.webp',text:'Купила Li Auto L7 через China Import Cars, и это было лучшее решение! Авто стильное, удобное и современное. Компания быстро организовала доставку и помогла на каждом этапе. Всё прошло идеально, рекомендую!'},
+ {name:'Geely Coolray',img:'/image/cache/catalog/reviews/new-geely-1-800x600.webp',text:'Заказывал Geely Coolray, остался очень доволен. С самого начала всё было понятно: помогли определиться с комплектацией, ответили на все вопросы, на каждом этапе держали в курсе. Машину привезли в оговорённый срок, по состоянию всё отлично. Сейчас езжу и радуюсь. Однозначно рекомендую.'},
+ {name:'Changan Q05',img:'/image/cache/catalog/reviews/new-changan-1-800x600.webp',text:'Заказывал Changan Q05, остался очень доволен. От выбора машины до её получения всё прошло спокойно и без лишней суеты. Ребята всегда были на связи, подробно отвечали на вопросы и присылали информацию по каждому этапу. Машину привезли в срок, состояние отличное.'},
+ {name:'Changan Q05',img:'/image/cache/catalog/reviews/new-changan-2-800x600.webp',text:'Долго выбирал, что именно брать, в итоге остановился на Changan Q05. Михаил помог разобраться в комплектациях и подсказал, на что действительно стоит обратить внимание. Никто не пытался просто продать самый дорогой вариант. Машина приехала, всё соответствует тому, что обсуждали. Покупкой доволен.'},
+ {name:'Mazda CX-5',img:'/image/cache/catalog/reviews/new-mazda-1-800x600.webp',text:'Давно присматривался именно к Mazda CX-5 и в итоге решил заказывать через ребят. Приехала именно та версия, которую выбирали. Отдельное спасибо Михаилу и Роману за то, что помогли пройти весь путь без лишней головной боли. Машиной очень доволен.'},
+ {name:'Ксения',img:'/image/cache/catalog/reviews/ksenia-800x600.webp',text:'Покупали Seal из наличия, думала между ним и Tesla 3. Менеджер Роман рассказал все плюсы и минусы, за что отдельная благодарность. Машинка супер!'},
+ {name:'Владислав',img:'/image/cache/catalog/reviews/vladislav-800x600.webp',text:'В компании China Import Cars приобрёл недавно автомобиль Li L9 по адекватной цене. Сделали мастер-аккаунт как и обещали, русский язык и Яндекс Навигатор. Ребята адекватные, работать можно.'},
+ {name:'Марина',img:'/image/cache/catalog/reviews/marina-800x600.webp',text:'Очень рады, что обратились в данную компанию — много пересмотрели вариантов и не прогадали! Огромное спасибо Михаилу, очень грамотный менеджер, подход к каждому клиенту. Катаемся с удовольствием, машина супер! Всем советую!'},
+ {name:'Максим',img:'/image/cache/catalog/reviews/maksim-800x600.webp',text:'Недавно приобрёл MG Cyberster через компанию China Import Cars и остался доволен. Особую благодарность хочу выразить менеджеру Михаилу за профессионализм. Машину доставили быстро, все документы оформлены чётко. Автомобиль прибыл в идеальном состоянии. Рекомендую!'}
+];
+
+/* spec icons */
+var SIC={
+ range:'<svg viewBox="0 0 24 24" fill="none"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>',
+ power:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 015 12v3H7v-3A7 7 0 0112 2z" stroke="currentColor" stroke-width="1.6"/><path d="M9 20h6M10 22h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+ drive:'<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+ type:'<svg viewBox="0 0 24 24" fill="none"><path d="M3 13l2-5a3 3 0 012.8-2h8.4A3 3 0 0119 8l2 5v5h-2v-1H5v1H3v-5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>'
+};
+function specIcon(s){ if(/запас хода/i.test(s))return SIC.range; if(/л\.с|квт/i.test(s))return SIC.power; if(/привод/i.test(s))return SIC.drive; return SIC.type; }
+function specKey(s){ if(/запас хода/i.test(s))return'Запас хода'; if(/привод/i.test(s))return'Привод'; if(/л\.с|квт/i.test(s))return'Мощность'; return'Тип'; }
+function specVal(s){ return s.replace(/^запас хода\s*/i,'').replace(/^привод\s*/i,''); }
+
+/* ================= RENDER ================= */
+function el(html){var d=document.createElement('div');d.innerHTML=html.trim();return d.firstChild;}
+function imgFallback(im){im.onerror=function(){this.style.opacity=.25;};}
+
+/* hero carousel */
+(function(){
+ var t=document.getElementById('heroTrack'), dots=document.getElementById('heroDots');
+ HERO.forEach(function(c,i){
+   t.appendChild(el('<div class="hcar-card"><div class="hcar-img"><span class="hcar-tag">'+c.type+'</span><img loading="lazy" referrerpolicy="no-referrer" src="'+IMG+c.img+'" alt="'+c.name+'"></div><div class="hcar-body"><h3>'+c.name+'</h3><div class="price">'+c.price+'</div></div></div>'));
+   dots.appendChild(el('<i'+(i===0?' class="on"':'')+'></i>'));
+ });
+ t.querySelectorAll('img').forEach(imgFallback);
+ t.addEventListener('scroll',function(){
+   var i=Math.round(t.scrollLeft/(t.scrollWidth/HERO.length));
+   dots.querySelectorAll('i').forEach(function(d,di){d.classList.toggle('on',di===i);});
+ },{passive:true});
+})();
+
+/* leaders */
+(function(){
+ var s=document.getElementById('leadScroll');
+ CARS.slice(0,8).forEach(function(c){
+   var card=el('<div class="lead-card"><div class="lead-img"><span class="badge-type '+typeClass(c.type)+'">'+c.type+'</span><img loading="lazy" referrerpolicy="no-referrer" src="'+IMG+c.img+'" alt="'+c.name+'"></div><div class="lead-body"><h4>'+c.name+'</h4><div class="from">'+fromPrice(c.price)+'</div></div></div>');
+   card.addEventListener('click',function(){openCar(c);});
+   card.querySelector('img'); imgFallback(card.querySelector('img'));
+   s.appendChild(card);
+ });
+})();
+
+/* reviews preview + full list */
+(function(){
+ var mini=document.getElementById('revScroll'), full=document.getElementById('reviewList');
+ REVIEWS.forEach(function(r,idx){
+   if(idx<5){
+     var m=el('<div class="rev-card rev-mini"><div class="top"><img class="ava" loading="lazy" referrerpolicy="no-referrer" src="'+IMG+r.img+'" alt=""><div><div class="who">'+r.name+'</div><div class="stars">★★★★★</div></div></div><div class="txt clamp">'+r.text+'</div></div>');
+     imgFallback(m.querySelector('img')); mini.appendChild(m);
+   }
+   var f=el('<div class="rev-card fade-in"><div class="top"><img class="ava" loading="lazy" referrerpolicy="no-referrer" src="'+IMG+r.img+'" alt=""><div><div class="who">'+r.name+'</div><div class="stars">★★★★★</div></div></div><div class="txt clamp">'+r.text+'</div><span class="rev-more">Читать полностью</span></div>');
+   imgFallback(f.querySelector('img'));
+   f.querySelector('.rev-more').addEventListener('click',function(){var tx=f.querySelector('.txt');tx.classList.toggle('clamp');this.textContent=tx.classList.contains('clamp')?'Читать полностью':'Свернуть';});
+   full.appendChild(f);
+ });
+})();
+
+/* catalog */
+var curFilter='Все';
+function renderCatalog(){
+ var grid=document.getElementById('catalogGrid'), q=(document.getElementById('searchInput').value||'').toLowerCase();
+ var list=CARS.filter(function(c){
+   var okF = curFilter==='Все' || c.type===curFilter;
+   var okQ = !q || c.name.toLowerCase().indexOf(q)>-1;
+   return okF&&okQ;
+ });
+ document.getElementById('countLine').textContent='Найдено автомобилей: '+list.length;
+ grid.innerHTML='';
+ list.forEach(function(c){
+   var card=el('<div class="cat-card fade-in"><div class="cat-img"><span class="badge-type '+typeClass(c.type)+'">'+c.type+'</span><img loading="lazy" referrerpolicy="no-referrer" src="'+IMG+c.img+'" alt="'+c.name+'"></div><div class="cat-body"><h4>'+c.name+'</h4><div class="from">'+fromPrice(c.price)+'</div></div></div>');
+   imgFallback(card.querySelector('img'));
+   card.addEventListener('click',function(){openCar(c);});
+   grid.appendChild(card);
+ });
+}
+(function(){
+ var f=document.getElementById('filters');
+ ['Все','Электромобиль','Гибрид','Бензин'].forEach(function(t,i){
+   var b=el('<button class="fchip'+(i===0?' on':'')+'">'+t+'</button>');
+   b.addEventListener('click',function(){curFilter=t;f.querySelectorAll('.fchip').forEach(function(x){x.classList.remove('on');});b.classList.add('on');renderCatalog();});
+   f.appendChild(b);
+ });
+ document.getElementById('searchInput').addEventListener('input',renderCatalog);
+ renderCatalog();
+})();
+
+/* car detail */
+var lastScreen='home';
+function openCar(c){
+ document.getElementById('carImg').src=IMG+c.img;
+ imgFallback(document.getElementById('carImg'));
+ document.getElementById('carImg').alt=c.name;
+ var tb=document.getElementById('carType'); tb.textContent=c.type; tb.className='type-badge '+typeClass(c.type);
+ document.getElementById('carName').textContent=c.name;
+ document.getElementById('carPrice').textContent=c.price;
+ document.getElementById('carBarPrice').textContent=fromPrice(c.price).replace('от ','');
+ var sp=document.getElementById('carSpecs'); sp.innerHTML='';
+ c.specs.forEach(function(s){ sp.appendChild(el('<div class="spec-row"><div class="si">'+specIcon(s)+'</div><div><div class="sk">'+specKey(s)+'</div><div class="sv">'+specVal(s)+'</div></div></div>')); });
+ document.getElementById('carOrder').onclick=function(){openSheet(c);};
+ lastScreen = document.querySelector('.screen.active').id.replace('screen-','');
+ if(lastScreen==='car') lastScreen='catalog';
+ showScreen('car',true);
+ document.getElementById('screen-car').scrollTop=0;
+}
+document.getElementById('carBack').addEventListener('click',function(){showScreen(lastScreen);});
+
+/* screen switching */
+function showScreen(name,keepTab){
+ document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
+ var sc=document.getElementById('screen-'+name); if(sc){sc.classList.add('active');sc.scrollTop=0;}
+ if(!keepTab){
+   document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('on',t.dataset.screen===name);});
+ }
+}
+document.querySelectorAll('.tab').forEach(function(t){t.addEventListener('click',function(){showScreen(t.dataset.screen);});});
+document.querySelectorAll('[data-goto]').forEach(function(b){b.addEventListener('click',function(){var n=b.dataset.goto;showScreen(n);document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('on',t.dataset.screen===n);});});});
+
+/* order bottom sheet */
+var sheet=document.getElementById('sheet'), sheetBack=document.getElementById('sheetBack');
+function openSheet(car){
+ var head = car ? ('<div class="sheet-car"><img referrerpolicy="no-referrer" src="'+IMG+car.img+'" alt=""><div><b>'+car.name+'</b><span>'+fromPrice(car.price)+'</span></div></div>') : '';
+ var title = car ? 'Заказать автомобиль' : 'Оставить заявку';
+ document.getElementById('sheetContent').innerHTML =
+   '<h3>'+title+'</h3><p>Менеджер свяжется с вами и рассчитает точную стоимость</p>'+head+
+   '<form id="sheetForm"><div class="field"><input required placeholder="Ваше имя"></div><div class="field"><input required type="tel" placeholder="+7 (___) ___-__-__"></div><button class="btn btn-primary btn-block btn-lg" type="submit">Отправить заявку</button></form>'+
+   '<div class="mini-note">Нажимая кнопку, вы соглашаетесь с политикой обработки персональных данных</div>';
+ document.getElementById('sheetForm').addEventListener('submit',function(e){e.preventDefault();sheetSuccess();});
+ sheetBack.classList.add('open'); sheet.classList.add('open');
+}
+function sheetSuccess(){
+ document.getElementById('sheetContent').innerHTML =
+   '<div class="ok-state"><div class="circle"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Заявка отправлена!</h3><p>Менеджер China Import Cars перезвонит вам в ближайшее время</p><button class="btn btn-primary btn-block btn-lg" id="okClose">Отлично</button></div>';
+ document.getElementById('okClose').addEventListener('click',closeSheet);
+}
+function closeSheet(){sheetBack.classList.remove('open');sheet.classList.remove('open');}
+sheetBack.addEventListener('click',closeSheet);
+document.querySelectorAll('[data-order]').forEach(function(b){b.addEventListener('click',function(){openSheet(null);});});
+
+/* contacts form */
+document.getElementById('contactForm').addEventListener('submit',function(e){
+ e.preventDefault();
+ this.innerHTML='<div class="ok-state"><div class="circle"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Заявка отправлена!</h3><p>Мы перезвоним вам в течение 15 минут</p></div>';
+});
+</script>
+</body>
+</html>
