@@ -423,6 +423,55 @@ h1,h2,h3,h4,p{margin:0;}
 .scar b{display:block;font-size:14.5px;font-weight:800;}
 .scar span{display:block;font-size:12.5px;color:var(--muted);font-weight:700;line-height:1.35;}
 
+
+/* ---------- catalog sections ---------- */
+.seg{position:relative;display:-webkit-flex;display:flex;background:#e6eaf3;border-radius:15px;padding:4px;margin-bottom:10px;}
+.seg-ind{position:absolute;top:4px;bottom:4px;left:4px;width:calc((100% - 8px) / 3);border-radius:12px;background:#fff;box-shadow:0 4px 12px rgba(30,40,70,.12);-webkit-transition:-webkit-transform .38s cubic-bezier(.2,.8,.2,1);transition:transform .38s cubic-bezier(.2,.8,.2,1);}
+.seg-b{position:relative;z-index:1;-webkit-flex:1;flex:1;min-height:48px;padding:4px 2px;font-size:12.5px;font-weight:800;color:var(--muted);line-height:1.15;}
+.seg-b small{display:block;font-size:11px;font-weight:800;color:var(--muted);margin-top:2px;}
+.seg-b[aria-selected="true"]{color:var(--ink);}
+.seg-b[aria-selected="true"] small{color:#5b21b6;}
+.sec-note{margin:6px 16px 0;font-size:13px;color:var(--muted);line-height:1.45;}
+.blogo.txt{width:auto;min-width:50px;padding:0 11px;}
+.blogo.txt b{font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--ink);}
+.bchip .bl.txt{width:40px;height:36px;border-radius:11px;background:#eef2f9;color:var(--ink);font-size:13px;font-weight:800;}
+.car-card.photo .ph-stage{position:relative;height:0;padding-top:66%;background:#e9edf5;overflow:hidden;}
+.car-card.photo .ph-stage img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;}
+.ph-n{position:absolute;right:10px;bottom:10px;z-index:2;background:rgba(15,20,35,.7);color:#fff;font-size:11px;font-weight:800;padding:4px 9px;border-radius:14px;}
+.t-year{background:rgba(15,20,35,.74);}
+.dhead .blogo.txt{width:auto;padding:0 12px;}
+
+/* ---------- motion (added by JS only when the user has not asked to reduce motion) ---------- */
+@-webkit-keyframes riseIn{from{opacity:0;-webkit-transform:translateY(20px);}to{opacity:1;-webkit-transform:none;}}
+@keyframes riseIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
+@keyframes driveIn{0%{opacity:0;transform:translateX(90px) scale(.94);-webkit-filter:blur(6px);filter:blur(6px);}65%{opacity:1;-webkit-filter:blur(0);filter:blur(0);}100%{opacity:1;transform:none;-webkit-filter:blur(0);filter:blur(0);}}
+@keyframes sweep{from{background-position:100% 0;}to{background-position:0 0;}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes swapIn{from{opacity:0;transform:translateX(14px);}to{opacity:1;transform:none;}}
+@keyframes pop{0%{transform:scale(.82);}60%{transform:scale(1.1);}100%{transform:scale(1);}}
+@keyframes bounce{0%,100%{transform:none;}40%{transform:translateY(-4px);}}
+@keyframes slideUp{from{transform:translateY(100%);}to{transform:none;}}
+@keyframes settle{from{transform:scale(1.06);}to{transform:none;}}
+.motion .h1 span{-webkit-animation:riseIn .75s cubic-bezier(.2,.7,.2,1) both;animation:riseIn .75s cubic-bezier(.2,.7,.2,1) both;}
+.motion .h1 span:nth-child(2){animation-delay:.08s;}
+.motion .h1 span:nth-child(3){animation-delay:.16s;}
+.motion .h1 .grad{background-image:linear-gradient(90deg,#3469cf 0%,#7b2be6 50%,#3469cf 100%);background-size:200% 100%;-webkit-animation:riseIn .75s .08s cubic-bezier(.2,.7,.2,1) both,sweep 2.6s .5s ease-in-out both;animation:riseIn .75s .08s cubic-bezier(.2,.7,.2,1) both,sweep 2.6s .5s ease-in-out both;}
+.motion .lead{animation:riseIn .7s .24s cubic-bezier(.2,.7,.2,1) both;}
+.motion .stage::before{animation:fadeIn 1.2s .3s both;}
+.motion .hslide:first-child img{animation:driveIn 1.05s .28s cubic-bezier(.16,.84,.3,1) both;}
+.motion .hcard{animation:riseIn .7s .62s cubic-bezier(.2,.7,.2,1) both;}
+.motion .catalog-go{animation:riseIn .7s .74s cubic-bezier(.2,.7,.2,1) both;}
+.motion .hcard.swap .meta{animation:swapIn .45s cubic-bezier(.2,.7,.2,1) both;}
+.motion .hcard.swap .nm{animation:swapIn .45s .05s cubic-bezier(.2,.7,.2,1) both;}
+.motion .hcard.swap .price{animation:swapIn .45s .1s cubic-bezier(.2,.7,.2,1) both;}
+.motion .rv{opacity:0;transform:translateY(18px);-webkit-transition:opacity .6s cubic-bezier(.2,.7,.2,1),-webkit-transform .6s cubic-bezier(.2,.7,.2,1);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1);}
+.motion .rv.in{opacity:1;transform:none;}
+.motion .st{animation:riseIn .5s cubic-bezier(.2,.7,.2,1) both;}
+.motion .fadein .dg-slide img{animation:fadeIn .45s both;}
+.motion .sw[aria-pressed="true"] img,.motion .wh[aria-pressed="true"] img{animation:pop .4s cubic-bezier(.2,.8,.2,1) both;}
+.motion .tab[aria-current="page"] svg{animation:bounce .45s ease both;}
+.motion #screen-car.active .obar{animation:slideUp .45s .12s cubic-bezier(.2,.8,.2,1) both;}
+.motion #screen-car.active .dg-slide:first-child img{animation:settle 1.1s cubic-bezier(.2,.7,.2,1) both;}
 /* ---------- QR panel (desktop only) ---------- */
 .qr-aside{display:none;}
 @media(min-width:860px){
@@ -475,7 +524,7 @@ h1,h2,h3,h4,p{margin:0;}
           <div class="tiles">
             <button class="tile" data-cat="new"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l1.5-4.5A2 2 0 018.4 7h7.2a2 2 0 011.9 1.5L19 13v5h-2v-1H7v1H5v-5z" stroke="currentColor" stroke-width="1.7"/></svg>Новые</button>
             <button class="tile" data-cat="util"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l7 4v5c0 4.5-3 7.8-7 9-4-1.2-7-4.5-7-9V7l7-4z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>Льготный утиль</button>
-            <a class="tile" href="https://chinaimportcars.ru/avto-s-probegom/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12a8 8 0 0114-5m2-2v4h-4M20 12a8 8 0 01-14 5m-2 2v-4h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>С пробегом ↗<span class="sr"> (откроется сайт)</span></a>
+            <button class="tile" data-cat="used"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12a8 8 0 0114-5m2-2v4h-4M20 12a8 8 0 01-14 5m-2 2v-4h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>С пробегом</button>
           </div>
           <button class="tradein" data-topic="tradein"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 7h11l-2.5-2.5M16 17H5l2.5 2.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Сдать свой авто в Trade-In</span><b>Оценить →</b></button>
         </div>
@@ -539,11 +588,20 @@ h1,h2,h3,h4,p{margin:0;}
 
     <!-- ================= CATALOG ================= -->
     <section class="screen" id="screen-catalog" aria-label="Каталог">
-      <div class="searchbar"><label class="search"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="M20 20l-3-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span class="sr">Поиск по модели</span><input id="searchInput" type="search" placeholder="Поиск: ZEEKR, Changan, Mazda…" autocomplete="off"/></label></div>
+      <div class="searchbar">
+        <div class="seg" id="segCat" role="tablist" aria-label="Раздел каталога">
+          <span class="seg-ind" id="segInd" aria-hidden="true"></span>
+          <button class="seg-b" role="tab" data-sec="new" aria-selected="true">Новые<small id="cnt-new"></small></button>
+          <button class="seg-b" role="tab" data-sec="util" aria-selected="false">Льготный утиль<small id="cnt-util"></small></button>
+          <button class="seg-b" role="tab" data-sec="used" aria-selected="false">С пробегом<small id="cnt-used"></small></button>
+        </div>
+        <label class="search"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="M20 20l-3-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span class="sr">Поиск по модели</span><input id="searchInput" type="search" placeholder="Поиск по марке или модели" autocomplete="off"/></label>
+      </div>
+      <p class="sec-note" id="secNote"></p>
       <h2 class="flabel" id="lblBrand">Марка</h2>
       <div class="frow" id="brandFilter" role="group" aria-labelledby="lblBrand"></div>
-      <h2 class="flabel" id="lblType">Тип двигателя</h2>
-      <div class="frow" id="typeFilter" role="group" aria-labelledby="lblType"></div>
+      <div id="typeWrap"><h2 class="flabel" id="lblType">Тип двигателя</h2>
+      <div class="frow" id="typeFilter" role="group" aria-labelledby="lblType"></div></div>
       <div class="cat-bar"><span class="cnt" id="countLine" aria-live="polite"></span><button class="sortbtn" id="sortBtn"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 4v16M7 20l-3-3M7 20l3-3M17 20V4M17 4l-3 3M17 4l3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="sortTxt">По популярности</span></button></div>
       <div class="activef" id="activeF"></div>
       <div class="cat-list" id="catalogList"></div>
@@ -559,11 +617,11 @@ h1,h2,h3,h4,p{margin:0;}
       </div>
       <div class="dbody">
         <div class="dhead"><span class="blogo" id="carLogo"></span><div><span class="badge" id="carType"></span><h1 id="carName"></h1></div></div>
-        <div class="cap">Стоимость под ключ</div>
+        <div class="cap" id="carPriceLbl">Стоимость под ключ</div>
         <div class="price dprice" id="carPrice"></div>
         <div class="keys" id="keySpecs"></div>
 
-        <section class="cfg" aria-labelledby="cfgTitle">
+        <section class="cfg" id="cfgWrap" aria-labelledby="cfgTitle">
           <h2 id="cfgTitle">Цвета и диски</h2>
           <p class="hint">Выберите цвет кузова, салона и диски — фото обновятся</p>
           <div class="cb" id="cfgBody"><div class="cb-t"><h3 id="lblBody">Цвет кузова</h3><span id="cfgBodyName"></span></div><div class="swrow" id="swBody" role="group" aria-labelledby="lblBody"></div><div class="strip" id="bodyStrip"></div></div>
@@ -573,7 +631,7 @@ h1,h2,h3,h4,p{margin:0;}
 
         <section class="specs" aria-labelledby="specTitle"><h2 id="specTitle">Характеристики</h2><dl id="specList"></dl></section>
 
-        <section class="incl" aria-labelledby="inclTitle">
+        <section class="incl" id="inclWrap" aria-labelledby="inclTitle">
           <h2 id="inclTitle">В стоимость входит</h2>
           <ul>
             <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Таможенная очистка РФ</li>
@@ -667,11 +725,15 @@ h1,h2,h3,h4,p{margin:0;}
 </aside>
 
 <script src="assets/data.js"></script>
+<script src="assets/sections.js"></script>
 <script>
 (function(){
 'use strict';
 var A='assets/';
 var reduceMotion=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+var MOTION=!reduceMotion;if(MOTION)document.documentElement.className+=' motion';
+function stagger(node,i){if(!MOTION)return;node.style.animationDelay=(i*55)+'ms';node.classList.add('st');}
+function replay(node,cls){if(!MOTION)return;node.classList.remove(cls);void node.offsetWidth;node.classList.add(cls);}
 function $(id){return document.getElementById(id);}
 function el(h){var d=document.createElement('div');d.innerHTML=h.trim();return d.firstChild;}
 function each(list,fn){Array.prototype.forEach.call(list,fn);}
@@ -688,7 +750,7 @@ function setScrollY(elm,y,smooth){if(smooth&&!reduceMotion&&elm.scrollTo&&('scro
 var ICON_ARROW='<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 var ICON_OK='<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
-var BY={};CARS.forEach(function(c){BY[c.key]=c;});
+var BY={};CARS.forEach(function(c){c.sec='new';BY[c.key]=c;});
 var HERO=[{k:'zeekr-8x',img:A+'p/crop-hero-zeekr-8x.webp'},{k:'li-l9-livis',img:A+'p/crop-hero-li-9-levis.webp'},{k:'toyota-bz3x',img:A+'p/crop-hero-toyota-bz3x.webp'}];
 var LEADERS=['zeekr-8x','zeekr-9x','li-l8','li-l9-livis','xiaomi-yu7','zeekr-001','changan-qiyuan-nevo-q05','changan-qiyuan-nevo-a06'];
 var REVIEWS=[
@@ -718,7 +780,8 @@ var BLOG=[['Обзор электромобиля Nio EC7','obzor-elektromobilya
 /* ================= HERO ================= */
 var hi=0,htimer=null,hstart=0,HDUR=5500;
 function heroMeta(c){return [c.type,spec(c,/запас хода/i),hpText(c),spec(c,/привод/i)].filter(function(x){return x;}).join(' • ');}
-function heroCard(){var c=BY[HERO[hi].k];$('hcMeta').textContent=heroMeta(c);$('hcName').textContent=c.name;$('hcPrice').textContent=fromPrice(c.price);$('heroCard').setAttribute('aria-label',c.name+', '+fromPrice(c.price)+'. Открыть автомобиль');}
+var heroInit=false;
+function heroCard(){var c=BY[HERO[hi].k];if(heroInit)replay($('heroCard'),'swap');heroInit=true;$('hcMeta').textContent=heroMeta(c);$('hcName').textContent=c.name;$('hcPrice').textContent=fromPrice(c.price);$('heroCard').setAttribute('aria-label',c.name+', '+fromPrice(c.price)+'. Открыть автомобиль');}
 function heroGo(i,smooth){var t=$('heroTrack');hi=(i+HERO.length)%HERO.length;setScrollX(t,hi*t.clientWidth,smooth);heroCard();heroTimer();}
 function heroTimer(){clearTimeout(htimer);var bar=$('hcBar');bar.style.transition='none';bar.style.width='0';if(reduceMotion)return;void bar.offsetWidth;bar.style.transition='width '+HDUR+'ms linear';bar.style.width='100%';htimer=setTimeout(function(){if($('screen-home').classList.contains('active'))heroGo(hi+1,true);else heroTimer();},HDUR);}
 (function(){var t=$('heroTrack');
@@ -752,60 +815,93 @@ function renderReviews(){revReady=true;var full=$('reviewList');REVIEWS.forEach(
  var b=it.querySelector('.faq-q');b.addEventListener('click',function(){var o=it.classList.toggle('open');b.setAttribute('aria-expanded',o?'true':'false');});s.appendChild(it);});})();
 (function(){var s=$('blogScroll');BLOG.forEach(function(b){s.appendChild(el('<a class="blog" href="https://chinaimportcars.ru/'+b[1]+'" target="_blank" rel="noopener"><img loading="lazy" src="'+A+'blog/'+b[1].slice(0,40)+'.webp" alt=""><h3>'+esc(b[0])+'</h3></a>'));});})();
 
-/* ================= CATALOG ================= */
-var F={brand:'Все',type:'Все',util:false,sort:0};
-var SORTS=['По популярности','Сначала дешевле','Сначала дороже'];
+/* ================= CATALOG (3 sections, as on the site) ================= */
+var SECS={
+ new:{list:CARS,note:'Электромобили и гибриды под заказ из Китая — цена под ключ',types:true,sorts:['По популярности','Сначала дешевле','Сначала дороже']},
+ util:{list:UTIL,note:'Новые авто до 160 л.с. — выгоднее за счёт льготного утильсбора',types:true,sorts:['По популярности','Сначала дешевле','Сначала дороже']},
+ used:{list:USED,note:'Автомобили с пробегом из Китая 2022–2025 годов, проверенные до покупки',types:false,sorts:['По популярности','Сначала дешевле','Сначала дороже','Сначала новее','Меньше пробег']}
+};
+var F={sec:'new',brand:'Все',type:'Все',sort:0};
 var catReady=false,revReady=false;
+function metaV(c,re){if(!c.meta)return '';for(var i=0;i<c.meta.length;i++){if(re.test(c.meta[i][0]))return c.meta[i][1];}return '';}
+function yearOf(c){var m=metaV(c,/год/i).match(/\d{4}/);return m?parseInt(m[0],10):0;}
+function kmOf(c){return parseInt((metaV(c,/пробег/i).replace(/\D/g,'')||'0'),10);}
+function cover(c){return c.img||c.imgs[0];}
+function brandChip(c,extra){return c.logo?'<span class="blogo'+(extra||'')+'"><img src="'+c.logo+'" alt="'+esc(c.brand)+'"></span>':'<span class="blogo txt'+(extra||'')+'"><b>'+esc(c.brand)+'</b></span>';}
 function renderCatalog(){
- catReady=true;
+ catReady=true;var S=SECS[F.sec];
  var q=($('searchInput').value||'').toLowerCase().trim(),list=$('catalogList');
- var res=CARS.filter(function(c){return (F.brand==='Все'||c.brand===F.brand)&&(F.type==='Все'||c.type===F.type)&&(!F.util||minHp(c)<=160)&&(!q||(c.name+' '+c.brand).toLowerCase().indexOf(q)>-1);});
+ var res=S.list.filter(function(c){return (F.brand==='Все'||c.brand===F.brand)&&(!S.types||F.type==='Все'||c.type===F.type)&&(!q||(c.name+' '+c.brand).toLowerCase().indexOf(q)>-1);});
  if(F.sort===1)res.sort(function(a,b){return priceNum(a.price)-priceNum(b.price);});
  if(F.sort===2)res.sort(function(a,b){return priceNum(b.price)-priceNum(a.price);});
+ if(F.sort===3)res.sort(function(a,b){return yearOf(b)-yearOf(a);});
+ if(F.sort===4)res.sort(function(a,b){return kmOf(a)-kmOf(b);});
  $('countLine').textContent='Найдено: '+res.length+' '+plural(res.length,'автомобиль','автомобиля','автомобилей');
  list.innerHTML='';renderActive();
- if(!res.length){var e=el('<div class="empty"><h3>Ничего не нашлось</h3><p>Под эти условия нет моделей. Сбросьте фильтры или оставьте заявку — подберём авто под ваш запрос.</p><button class="btn btn-primary btn-block">Сбросить фильтры</button></div>');e.querySelector('button').addEventListener('click',resetFilters);list.appendChild(e);return;}
- res.forEach(function(c){
-  var chips=[spec(c,/запас хода/i),hpText(c),spec(c,/привод/i)].filter(function(x){return x;}).map(function(x){return '<span>'+esc(x)+'</span>';}).join('');
-  var dots=c.colors.slice(0,5).map(function(x){return '<img loading="lazy" src="'+x.sw+'" alt="">';}).join('')+(c.colors.length?'<em>'+c.colors.length+' '+plural(c.colors.length,'цвет','цвета','цветов')+'</em>':'');
-  var b=el('<a class="car-card" href="#'+c.key+'" aria-label="'+esc(c.name)+', '+c.type+', '+fromPrice(c.price)+'"><div class="car-stage">'+logoChip(c)+'<span class="badge '+typeClass(c.type)+'">'+c.type+'</span><img class="car" loading="lazy" src="'+c.img+'" alt=""></div><div class="bd"><h3>'+esc(c.name)+'</h3><div class="cap">Цена под ключ</div><div class="row"><div class="price">'+fromPrice(c.price)+'</div><div class="dots" aria-hidden="true">'+dots+'</div></div>'+(minHp(c)<=160?'<span class="util-tag">Льготный утильсбор · до 160 л.с.</span>':'')+'<div class="specchips">'+chips+'</div></div></a>');
-  b.addEventListener('click',function(e){e.preventDefault();openCar(c);});list.appendChild(b);});
+ if(!res.length){var e=el('<div class="empty"><h3>Ничего не нашлось</h3><p>В этом разделе нет таких моделей. Сбросьте фильтры или оставьте заявку — подберём авто под ваш запрос.</p><button class="btn btn-primary btn-block">Сбросить фильтры</button></div>');e.querySelector('button').addEventListener('click',resetFilters);list.appendChild(e);return;}
+ res.forEach(function(c,i){var b=F.sec==='new'?newCard(c):photoCard(c);b.addEventListener('click',function(e){e.preventDefault();openCar(c);});if(i<6)stagger(b,i);list.appendChild(b);});
+}
+function newCard(c){
+ var chips=[spec(c,/запас хода/i),hpText(c),spec(c,/привод/i)].filter(function(x){return x;}).map(function(x){return '<span>'+esc(x)+'</span>';}).join('');
+ var dots=c.colors.slice(0,5).map(function(x){return '<img loading="lazy" src="'+x.sw+'" alt="">';}).join('')+(c.colors.length?'<em>'+c.colors.length+' '+plural(c.colors.length,'цвет','цвета','цветов')+'</em>':'');
+ return el('<a class="car-card" href="#'+c.key+'" aria-label="'+esc(c.name)+', '+c.type+', '+fromPrice(c.price)+'"><div class="car-stage">'+brandChip(c)+'<span class="badge '+typeClass(c.type)+'">'+c.type+'</span><img class="car" loading="lazy" src="'+c.img+'" alt=""></div><div class="bd"><h3>'+esc(c.name)+'</h3><div class="cap">Цена под ключ</div><div class="row"><div class="price">'+fromPrice(c.price)+'</div><div class="dots" aria-hidden="true">'+dots+'</div></div><div class="specchips">'+chips+'</div></div></a>');
+}
+function photoCard(c){
+ var used=c.sec==='used';
+ var badge=used?'<span class="badge t-year">'+(yearOf(c)||'')+' · '+esc(metaV(c,/пробег/i))+'</span>':'<span class="badge '+typeClass(c.type)+'">'+c.type+'</span>';
+ var chips=(used?[metaV(c,/двигатель/i),metaV(c,/привод/i)]:[metaV(c,/мощность/i),metaV(c,/привод/i),metaV(c,/коробка/i)]).filter(function(x){return x;}).map(function(x,i){return '<span>'+(i===1?'Привод: ':'')+esc(x)+'</span>';}).join('');
+ return el('<a class="car-card photo" href="#'+c.key+'" aria-label="'+esc(c.name)+', '+c.price+'"><div class="ph-stage">'+brandChip(c)+badge+'<img loading="lazy" src="'+c.imgs[0]+'" alt=""><span class="ph-n" aria-hidden="true">'+c.imgs.length+' фото</span></div><div class="bd"><h3>'+esc(c.name)+'</h3><div class="cap">'+(used?'Цена':'Цена под ключ')+'</div><div class="row"><div class="price">'+esc(c.price)+'</div></div>'+(used?'':'<span class="util-tag">Льготный утильсбор · до 160 л.с.</span>')+'<div class="specchips">'+chips+'</div></div></a>');
 }
 function plural(n,a,b,c){var m=n%10,h=n%100;if(m===1&&h!==11)return a;if(m>=2&&m<=4&&(h<10||h>=20))return b;return c;}
 function chipIntoView(row){var on=row.querySelector('[aria-pressed="true"]');if(!on)return;var x=on.offsetLeft-16;if(x<row.scrollLeft||x+on.offsetWidth>row.scrollLeft+row.clientWidth)row.scrollLeft=Math.max(0,x-row.clientWidth/3);}
-function renderActive(){var box=$('activeF'),items=[];if(F.brand!=='Все')items.push(['brand',F.brand]);if(F.type!=='Все')items.push(['type',F.type]);if(F.util)items.push(['util','До 160 л.с.']);var q=$('searchInput').value.trim();if(q)items.push(['q','«'+q+'»']);
- box.innerHTML='';items.forEach(function(it){var b=el('<button aria-label="Убрать фильтр: '+esc(it[1])+'">'+esc(it[1])+'<span aria-hidden="true">×</span></button>');b.addEventListener('click',function(){if(it[0]==='brand')F.brand='Все';if(it[0]==='type')F.type='Все';if(it[0]==='util')F.util=false;if(it[0]==='q')$('searchInput').value='';syncChips();renderCatalog();});box.appendChild(b);});}
-function syncChips(){each($('brandFilter').children,function(x){x.setAttribute('aria-pressed',x.getAttribute('data-v')===F.brand?'true':'false');});each($('typeFilter').children,function(x){var v=x.getAttribute('data-v');x.setAttribute('aria-pressed',(v==='util'?F.util:(v==='Все'?(F.type==='Все'&&!F.util):v===F.type))?'true':'false');});$('sortTxt').textContent=SORTS[F.sort];chipIntoView($('brandFilter'));chipIntoView($('typeFilter'));}
-function resetFilters(){F.brand='Все';F.type='Все';F.util=false;$('searchInput').value='';syncChips();renderCatalog();}
-(function(){
- var bf=$('brandFilter'),seen={},brands=[];CARS.forEach(function(c){if(!seen[c.brand]){seen[c.brand]=c.logo;brands.push(c.brand);}});
- var all=el('<button class="bchip" data-v="Все"><span class="all" aria-hidden="true">Все</span>Все марки</button>');bf.appendChild(all);
- brands.forEach(function(b){bf.appendChild(el('<button class="bchip" data-v="'+esc(b)+'"><span class="bl" aria-hidden="true"><img src="'+seen[b]+'" alt=""></span>'+esc(b)+'</button>'));});
+function renderActive(){var box=$('activeF'),items=[];if(F.brand!=='Все')items.push(['brand',F.brand]);if(F.type!=='Все'&&SECS[F.sec].types)items.push(['type',F.type]);var q=$('searchInput').value.trim();if(q)items.push(['q','«'+q+'»']);
+ box.innerHTML='';items.forEach(function(it){var b=el('<button aria-label="Убрать фильтр: '+esc(it[1])+'">'+esc(it[1])+'<span aria-hidden="true">×</span></button>');b.addEventListener('click',function(){if(it[0]==='brand')F.brand='Все';if(it[0]==='type')F.type='Все';if(it[0]==='q')$('searchInput').value='';syncChips();renderCatalog();});box.appendChild(b);});}
+function buildFilters(){
+ var S=SECS[F.sec],bf=$('brandFilter'),seen={},brands=[];bf.innerHTML='';
+ S.list.forEach(function(c){if(!(c.brand in seen)){seen[c.brand]=c.logo;brands.push(c.brand);}});
+ bf.appendChild(el('<button class="bchip" data-v="Все"><span class="all" aria-hidden="true">Все</span>Все марки</button>'));
+ brands.forEach(function(b){bf.appendChild(el('<button class="bchip" data-v="'+esc(b)+'">'+(seen[b]?'<span class="bl" aria-hidden="true"><img src="'+seen[b]+'" alt=""></span>':'<span class="bl txt" aria-hidden="true">'+esc(b.slice(0,2).toUpperCase())+'</span>')+esc(b)+'</button>'));});
  each(bf.children,function(ch){ch.addEventListener('click',function(){F.brand=ch.getAttribute('data-v');syncChips();renderCatalog();});});
- var tf=$('typeFilter');
- ['Все','Электромобиль','Гибрид','Бензин'].forEach(function(t){tf.appendChild(el('<button class="fchip" data-v="'+t+'">'+t+'</button>'));});
- tf.appendChild(el('<button class="fchip util" data-v="util">До 160 л.с. · льготный утиль</button>'));
- each(tf.children,function(ch){ch.addEventListener('click',function(){var v=ch.getAttribute('data-v');if(v==='util'){F.util=!F.util;}else{F.type=v;if(v==='Все')F.util=false;}syncChips();renderCatalog();});});
- $('sortBtn').addEventListener('click',function(){F.sort=(F.sort+1)%3;syncChips();renderCatalog();});
+ var tf=$('typeFilter');tf.innerHTML='';$('typeWrap').style.display=S.types?'':'none';
+ if(S.types){var ts=['Все'];S.list.forEach(function(c){if(ts.indexOf(c.type)<0)ts.push(c.type);});
+  ts.forEach(function(t){tf.appendChild(el('<button class="fchip" data-v="'+t+'">'+t+'</button>'));});
+  each(tf.children,function(ch){ch.addEventListener('click',function(){F.type=ch.getAttribute('data-v');syncChips();renderCatalog();});});}
+ $('secNote').textContent=S.note;
+ bf.scrollLeft=0;tf.scrollLeft=0;
+}
+function syncChips(){each($('brandFilter').children,function(x){x.setAttribute('aria-pressed',x.getAttribute('data-v')===F.brand?'true':'false');});each($('typeFilter').children,function(x){x.setAttribute('aria-pressed',x.getAttribute('data-v')===F.type?'true':'false');});
+ var S=SECS[F.sec];if(F.sort>=S.sorts.length)F.sort=0;$('sortTxt').textContent=S.sorts[F.sort];
+ each($('segCat').querySelectorAll('.seg-b'),function(b,i){var on=b.getAttribute('data-sec')===F.sec;b.setAttribute('aria-selected',on?'true':'false');if(on)$('segInd').style.transform='translateX('+(i*100)+'%)';});
+ chipIntoView($('brandFilter'));chipIntoView($('typeFilter'));}
+function setSection(sec){F.sec=sec;F.brand='Все';F.type='Все';F.sort=0;$('searchInput').value='';buildFilters();syncChips();renderCatalog();$('screen-catalog').scrollTop=0;}
+function resetFilters(){F.brand='Все';F.type='Все';$('searchInput').value='';syncChips();renderCatalog();}
+(function(){
+ ['new','util','used'].forEach(function(k){$('cnt-'+k).textContent=' '+SECS[k].list.length;});
+ each($('segCat').querySelectorAll('.seg-b'),function(b){b.addEventListener('click',function(){setSection(b.getAttribute('data-sec'));});});
+ $('sortBtn').addEventListener('click',function(){F.sort=(F.sort+1)%SECS[F.sec].sorts.length;syncChips();renderCatalog();});
  $('searchInput').addEventListener('input',renderCatalog);
- syncChips();
+ buildFilters();syncChips();
 })();
 
 /* ================= CAR PAGE ================= */
 var cur=null,sel={c:0,i:0,w:0},backTo='home';
 function lazyNear(track,slideSel,idx,range){each(track.querySelectorAll(slideSel),function(s,i){if(Math.abs(i-idx)<=range){var im=s.querySelector('img[data-src]');if(im){im.src=im.getAttribute('data-src');im.removeAttribute('data-src');}}});}
 function dgRender(picked){
- var c=cur,col=c.colors[sel.c];
- var photos=(col&&col.imgs.length)?col.imgs:c.gallery,slides=[];
+ var c=cur,slides=[];
+ if(c.sec!=='new'){c.imgs.forEach(function(s){slides.push({src:s});});}
+ else{var col=c.colors[sel.c];
+ var photos=(col&&col.imgs.length)?col.imgs:c.gallery;
  var studio={src:c.img,cut:true};
- if(picked){photos.forEach(function(s){slides.push({src:s});});slides.push(studio);}else{slides.push(studio);photos.forEach(function(s){slides.push({src:s});});}
- var t=$('dgTrack');t.innerHTML='';t.scrollLeft=0;
+ if(picked){photos.forEach(function(s){slides.push({src:s});});slides.push(studio);}else{slides.push(studio);photos.forEach(function(s){slides.push({src:s});});}}
+ var t=$('dgTrack');t.innerHTML='';t.scrollLeft=0;if(picked)replay(t,'fadein');
  slides.forEach(function(s,i){var b=el('<button class="dg-slide" aria-label="Фото '+(i+1)+' из '+slides.length+', открыть на весь экран"><img class="'+(s.cut?'cut':'')+'" '+(i<2?'src':'data-src')+'="'+s.src+'" alt=""></button>');b.addEventListener('click',function(){openLB('ext',s.src);});t.appendChild(b);});
  var n=slides.length;$('dgCount').textContent='1 / '+n;
  t.onscroll=function(){var i=Math.round(t.scrollLeft/t.clientWidth);$('dgCount').textContent=(i+1)+' / '+n;lazyNear(t,'.dg-slide',i,1);};
 }
 function swBtn(x,i,on,kind){return el('<button class="'+(kind==='wh'?'wh':'sw')+'" aria-pressed="'+(on?'true':'false')+'" aria-label="'+esc(x.name)+'"><img src="'+x.sw+'" alt=""></button>');}
 function cfgRender(){
+ if(cur.sec!=='new'){$('cfgWrap').style.display='none';$('barCfg').textContent=cfgText();return;}
+ $('cfgWrap').style.display='';
  var c=cur,col=c.colors[sel.c],it=c.interiors[sel.i],w=c.wheels[sel.w];
  $('cfgBody').style.display=c.colors.length?'':'none';
  var sb=$('swBody');sb.innerHTML='';c.colors.forEach(function(x,i){var b=swBtn(x,i,i===sel.c);b.addEventListener('click',function(){sel.c=i;cfgRender();dgRender(true);});sb.appendChild(b);});
@@ -822,19 +918,22 @@ function cfgRender(){
  $('barCfg').textContent=cfgText();
 }
 function strip(box,imgs,group){box.innerHTML='';imgs.forEach(function(s,i){var b=el('<button aria-label="Открыть фото '+(i+1)+' из '+imgs.length+'"><img src="'+s+'" alt=""></button>');b.addEventListener('click',function(){openLB(group,s);});box.appendChild(b);});box.scrollLeft=0;}
-function cfgText(){var c=cur,p=[];if(!c)return '';if(c.colors[sel.c])p.push(c.colors[sel.c].name);if(c.interiors[sel.i])p.push('салон '+c.interiors[sel.i].name.toLowerCase());if(c.wheels[sel.w])p.push('диски №'+(sel.w+1));return p.join(' · ');}
-function allPhotos(c){var seen={};function add(a,s){if(s&&!seen[s]){seen[s]=1;a.push(s);}}
+function cfgText(){var c=cur,p=[];if(!c)return '';if(c.sec==='used')return [metaV(c,/год/i),metaV(c,/пробег/i)].filter(function(x){return x;}).join(' · ');if(c.sec==='util')return 'Новый · до 160 л.с. · льготный утильсбор';if(c.colors[sel.c])p.push(c.colors[sel.c].name);if(c.interiors[sel.i])p.push('салон '+c.interiors[sel.i].name.toLowerCase());if(c.wheels[sel.w])p.push('диски №'+(sel.w+1));return p.join(' · ');}
+function allPhotos(c){if(c.sec!=='new')return {ext:c.imgs.slice(),int:[],wh:[]};var seen={};function add(a,s){if(s&&!seen[s]){seen[s]=1;a.push(s);}}
  var ext=[];add(ext,c.img);c.gallery.forEach(function(s){add(ext,s);});c.colors.forEach(function(x){x.imgs.forEach(function(s){add(ext,s);});});
  var int=[];c.interiors.forEach(function(x){x.imgs.forEach(function(s){add(int,s);});});
  var wh=[];c.wheels.forEach(function(x){add(wh,x.img);});return {ext:ext,int:int,wh:wh};}
 function openCar(c){
  cur=c;sel={c:0,i:0,w:0};
- $('carLogo').innerHTML='<img src="'+c.logo+'" alt="'+esc(c.brand)+'">';
- var tb=$('carType');tb.textContent=c.type;tb.className='badge '+typeClass(c.type);
+ var isNew=c.sec==='new',used=c.sec==='used';
+ $('carLogo').className='blogo'+(c.logo?'':' txt');$('carLogo').innerHTML=c.logo?'<img src="'+c.logo+'" alt="'+esc(c.brand)+'">':'<b>'+esc(c.brand)+'</b>';
+ var tb=$('carType');tb.textContent=used?'С пробегом':c.type;tb.className='badge '+(used?'t-year':typeClass(c.type));
  $('carName').textContent=c.name;$('carPrice').textContent=c.price;$('barPrice').textContent=fromPrice(c.price);
- var ks=[['Запас хода',spec(c,/запас хода/i)],['Мощность',hpText(c)],['Привод',spec(c,/привод/i)],['Разгон 0–100',spec(c,/разгон/i)]].filter(function(x){return x[1];}).slice(0,3);
+ $('carPriceLbl').textContent=used?'Цена':'Стоимость под ключ';$('inclWrap').style.display=isNew?'':'none';
+ var ks=isNew?[['Запас хода',spec(c,/запас хода/i)],['Мощность',hpText(c)],['Привод',spec(c,/привод/i)],['Разгон 0–100',spec(c,/разгон/i)]]:(used?[['Год',metaV(c,/год/i).replace(' год','')],['Пробег',metaV(c,/пробег/i)],['Двигатель',metaV(c,/двигатель/i)]]:[['Мощность',metaV(c,/мощность/i)],['Привод',metaV(c,/привод/i)],(metaV(c,/коробка/i)?['Коробка',metaV(c,/коробка/i)]:['Тип',metaV(c,/тип/i)])]);
+ ks=ks.filter(function(x){return x[1];}).slice(0,3);
  $('keySpecs').innerHTML=ks.map(function(x){return '<div><small>'+x[0]+'</small><b>'+esc(x[1])+'</b></div>';}).join('');
- $('specList').innerHTML=c.specs.map(function(s){return '<div class="sr-row"><dt>'+esc(s[0])+'</dt><dd>'+esc(s[1])+'</dd></div>';}).join('');
+ $('specList').innerHTML=(isNew?c.specs:c.meta).map(function(s){return '<div class="sr-row"><dt>'+esc(s[0])+'</dt><dd>'+esc(s[1])+'</dd></div>';}).join('');
  var ap=allPhotos(c);$('dgAllTxt').textContent='Все фото · '+(ap.ext.length+ap.int.length+ap.wh.length);
  dgRender(false);cfgRender();
  var act=document.querySelector('.screen.active');var from=act?act.id.replace('screen-',''):'home';if(from!=='car')backTo=from;
@@ -854,7 +953,7 @@ function isOpen(id){return $(id).classList.contains('open');}
 var LB={groups:[],g:'ext',ret:null};
 function openLB(group,startSrc){
  LB.ret=document.activeElement;
- var ap=allPhotos(cur);LB.groups=[['ext','Экстерьер',ap.ext],['int','Салон',ap.int],['wh','Диски',ap.wh]].filter(function(x){return x[2].length;});
+ var ap=allPhotos(cur);LB.groups=[['ext',cur.sec==='new'?'Экстерьер':'Фото',ap.ext],['int','Салон',ap.int],['wh','Диски',ap.wh]].filter(function(x){return x[2].length;});
  var tabs=$('lbTabs');tabs.innerHTML='';
  LB.groups.forEach(function(g){var b=el('<button class="lb-tab" role="tab" aria-selected="false" data-g="'+g[0]+'">'+g[1]+' · '+g[2].length+'</button>');b.addEventListener('click',function(){lbShow(g[0]);});tabs.appendChild(b);});
  $('lb').classList.add('open');$('lb').setAttribute('aria-hidden','false');lbShow(group||'ext',startSrc);
@@ -880,7 +979,9 @@ $('lbClose').addEventListener('click',closeLB);
 /* ================= NAVIGATION ================= */
 function showScreen(name){
  each(document.querySelectorAll('.screen'),function(s){s.classList.remove('active');});
+ if(name==='home'&&window.__revealCheck)setTimeout(window.__revealCheck,80);
  if(name==='catalog'&&!catReady)renderCatalog();if(name==='reviews'&&!revReady)renderReviews();
+ if(MOTION&&(name==='contacts'||name==='reviews')){var items=document.querySelectorAll('#screen-'+name+' .ch,#screen-'+name+' .crow,#screen-'+name+' .hours,#screen-'+name+' .form-card,#screen-'+name+' .page-h,#screen-'+name+' .page-sub,#screen-'+name+' .rev');each(items,function(n,i){n.classList.remove('st');void n.offsetWidth;if(i<9)stagger(n,i);});}
  var sc=$('screen-'+name);if(sc){sc.classList.add('active');sc.scrollTop=0;}
  $('app').classList.toggle('is-detail',name==='car');
  if(name!=='car')each(document.querySelectorAll('.tab'),function(t){if(t.getAttribute('data-screen')===name)t.setAttribute('aria-current','page');else t.removeAttribute('aria-current');});
@@ -892,7 +993,7 @@ function goTo(target){
 }
 each(document.querySelectorAll('[data-go]'),function(b){b.addEventListener('click',function(){goTo(b.getAttribute('data-go'));});});
 $('logoHome').addEventListener('click',function(e){e.preventDefault();showScreen('home');});
-each(document.querySelectorAll('[data-cat]'),function(b){b.addEventListener('click',function(){resetFilters();if(b.getAttribute('data-cat')==='util'){F.util=true;syncChips();renderCatalog();}showScreen('catalog');});});
+each(document.querySelectorAll('[data-cat]'),function(b){b.addEventListener('click',function(){setSection(b.getAttribute('data-cat'));showScreen('catalog');});});
 
 /* ================= DRAWER ================= */
 var DMENU=[['Главная','home','<path d="M4 11l8-7 8 7M6 10v9h12v-9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>'],
@@ -935,7 +1036,7 @@ function okHTML(t,s,btn,hid){return '<div class="ok" role="status"><div class="c
 var sheetRet=null;
 function openSheet(topic){
  sheetRet=document.activeElement;var T=TOPICS[topic]||TOPICS.pick,car=topic==='car'?cur:null;
- var head=car?('<div class="scar"><img src="'+car.img+'" alt=""><div><b>'+esc(car.name)+'</b><span>'+fromPrice(car.price)+'</span><span>'+esc(cfgText())+'</span></div></div>'):'';
+ var head=car?('<div class="scar"><img src="'+cover(car)+'" alt=""'+(car.sec!=='new'?' style="object-fit:cover;border-radius:10px"':'')+'><div><b>'+esc(car.name)+'</b><span>'+fromPrice(car.price)+'</span><span>'+esc(cfgText())+'</span></div></div>'):'';
  $('sheetContent').innerHTML='<h2 id="sheetTitle">'+T.t+'</h2><p class="sub">'+T.s+'</p>'+head+'<form id="sheetForm" novalidate>'+formHTML('Отправить заявку')+'</form>';
  bindForm($('sheetForm'),function(){$('sheetContent').innerHTML=okHTML('Заявка отправлена','Менеджер China Import Cars перезвонит в рабочее время: пн–пт 10–19, сб 11–16','Готово','sheetTitle');$('okClose').addEventListener('click',closeSheet);$('okClose').focus();});
  $('sheetScrim').classList.add('open');$('sheet').classList.add('open');$('sheet').setAttribute('aria-hidden','false');
@@ -952,6 +1053,27 @@ document.addEventListener('keydown',function(e){
  if(k==='Escape'||k==='Esc'||k===27){if(isOpen('lb'))closeLB();else if(isOpen('sheet'))closeSheet();else if(isOpen('drawer'))closeDrawer();}
  if(isOpen('lb')&&(k==='ArrowRight'||k==='ArrowLeft')){var tr=$('lbTrack');var i=Math.round(tr.scrollLeft/tr.clientWidth)+(k==='ArrowRight'?1:-1);setScrollX(tr,Math.max(0,i)*tr.clientWidth,true);}
 });
+/* scroll reveal (home): position check on scroll — works in every browser; content can never stay hidden */
+if(MOTION){
+ var RV=[],home=$('screen-home');
+ function mark(list,delay){each(list,function(n,i){n.classList.add('rv');if(delay)n.style.transitionDelay=delay(i)+'ms';RV.push(n);});}
+ mark(document.querySelectorAll('#screen-home .sec-h,#screen-home .sec-sub,#screen-home .trust,#screen-home .pay,#screen-home .parts,#screen-home .cta,#screen-home .step,#screen-home .faq-item'));
+ mark(document.querySelectorAll('#screen-home .fc'),function(i){return i%2*90;});
+ each(document.querySelectorAll('#screen-home .hs'),function(row){mark(row.children,function(i){return Math.min(i,3)*80;});});
+ var vh=function(){return window.innerHeight||document.documentElement.clientHeight;};
+ function check(){if(!RV.length)return;var lim=vh()*0.94,keep=[];
+  for(var i=0;i<RV.length;i++){var n=RV[i],r=n.getBoundingClientRect();if(r.top<lim&&r.bottom>0&&r.left<(window.innerWidth||9999)+40){n.classList.add('in');}else keep.push(n);}
+  RV=keep;}
+ var tick=null;function onScroll(){if(tick)return;tick=setTimeout(function(){tick=null;check();},60);}
+ home.addEventListener('scroll',onScroll,{passive:true});
+ each(document.querySelectorAll('#screen-home .hs'),function(row){row.addEventListener('scroll',onScroll,{passive:true});});
+ window.addEventListener('resize',onScroll);
+ setTimeout(check,60);setTimeout(check,900);
+ window.__revealCheck=check;
+ /* failsafe: if anything is still hidden 6 s after the user last scrolled past it, show it */
+ setInterval(function(){var y=home.scrollTop;each(RV.slice(),function(n){if(n.offsetTop<y+vh()){n.classList.add('in');}});check();},6000);
+}
+
 })();
 </script>
 </body>
